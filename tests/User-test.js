@@ -52,9 +52,6 @@ describe('User', () => {
       user1 = new User(userData[0]);
   })
   it('should be a function', () => {
-    // Setup
-    // Execution
-    // Assertion
     expect(User).to.be.a('function');
   });
 
@@ -74,9 +71,5 @@ describe('User', () => {
   it('should have a method returnFirstName that returns first name', () => {
     expect(user1.returnFirstName()).to.equal("Luisa");
   });
-  
-
-  // it('should', () => {});
-  // it('should', () => {});
-
 });
+
