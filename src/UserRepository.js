@@ -13,4 +13,7 @@ class UserRepository {
     return Math.floor(sumStepGoal / this.data.length)
   }
 }
-module.exports = UserRepository;
+
+if (typeof module !== 'undefined') {
+  module.exports = UserRepository;
+}
