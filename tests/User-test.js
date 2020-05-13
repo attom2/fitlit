@@ -63,16 +63,20 @@ describe('User', () => {
   });
   it('should equal null if not passed any data', () => {
     let sadUser = new User();
-    console.log(sadUser)
-    expect(sadUser.id).to.equal(null);
-    expect(sadUser.name).to.equal(null);
-    expect(sadUser.address).to.equal(null);
-    expect(sadUser.email).to.equal(null);
-    expect(sadUser.strideLength).to.equal(null);
-    expect(sadUser.dailyStepGoal).to.equal(null);
-    expect(sadUser.friends).to.equal(null);
+    expect(sadUser.id).to.eql(null);
   });
-  // it('should', () => {});
-  // it('should', () => {});
+  it('should equal null if passed in data other than object', () => {
+    let sadUser2 = new User('garbage');
+    let sadUser3 = new User(324);
+    expect(sadUser2.id).to.eql(null);
+    expect(sadUser3.id).to.eql(null);
+  });
+  it('should have a method returnFirstName that returns first name', () => {
+    expect(user1.returnFirstName()).to.equal("Luisa");
+  });
   
+
+  // it('should', () => {});
+  // it('should', () => {});
+
 });
