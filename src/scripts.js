@@ -8,10 +8,10 @@ window.onload = function() {
   makeUser();
 }
 function makeUser() {
-  const user1 = new User(userData[userId])
-  displayGreeting(user1);
-  displayUserInfo(user1);
-  displayUserHydration(user1,'2019/09/22');
+  const randomUser = new User(userData[userId])
+  displayGreeting(randomUser);
+  displayUserInfo(randomUser);
+  displayUserHydration(randomUser,'2019/09/22');
 }
 function displayGreeting(user) {
   userGreeting.innerText = `Hello ${user.returnFirstName()}`;
