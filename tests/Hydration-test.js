@@ -134,8 +134,8 @@ describe('Hydration', () => {
     expect(hydration.singleDayTotal(2, '2019/06/15')).to.equal(75)
     expect(hydration.singleDayTotal(2, '2019/06/16')).to.equal(85)
     /*
-    For a user, how many fluid ounces 
-    they consumed for a specific day 
+    For a user, how many fluid ounces
+    they consumed for a specific day
     (identified by a date)
     */
   })
@@ -151,22 +151,23 @@ describe('Hydration', () => {
 
   it('should return ounces consumed each day over 7 days', () => {
     let user1Week = {
-      "day 1": 47,
-      "day 2": 42,
-      "day 3": 34,
-      "day 4": 32,
-      "day 5": 30,
-      "day 6": 38,
-      "day 7": 33,
+      'Day 1': 47,
+      'Day 2': 42,
+      'Day 3': 34,
+      'Day 4': 32,
+      'Day 5': 30,
+      'Day 6': 38,
+      'Day 7': 33
     }
     expect(hydration.weeklyAmounts(1, "2019/06/22")).to.eql(user1Week)
-    /*
-    For a user, how many fluid ounces of water 
-    consumed each day over the course of a week 
-    (7 days) - 
-    return the amount for each day
-    */
   })
-  
-});
+  it('return null if user id/date is not in the data set', () => {
+    expect(hydration.weeklyAmounts(5,'2019/06/15')).to.equal(null)
+    expect(hydration.weeklyAmounts('2019/06/15', 3)).to.equal(null)
+    expect(hydration.weeklyAmounts()).to.equal(null)
+    expect(hydration.weeklyAmounts('3')).to.equal(null)
+    expect(hydration.weeklyAmounts({})).to.equal(null)
+  })
 
+
+});
