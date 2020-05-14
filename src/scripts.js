@@ -34,9 +34,11 @@ function instantiateHydrationData() {
 function displayUserHydration(user, today) {
   const hydration = instantiateHydrationData();
   let dailyWaterConsumption = hydration.singleDayTotal(user.id, today);
+  let averageWaterConsumption = hydration.dailyAverage(user.id)
   let weeklyWaterConsumption = JSON.stringify(hydration.weeklyAmounts(user.id, today));
-  todaysHydrationDiv.innerText =`${dailyWaterConsumption} ounces of water consumed today`;
+  todaysHydrationDiv.innerText =`${dailyWaterConsumption} ounces of water consumed today \n Average water consumption ${averageWaterConsumption} ounces a day`;
   weeklyHydrationDiv.innerText =`${weeklyWaterConsumption.replace(/[{}"]/gi, ' ')}`;
+
 
 }
 
