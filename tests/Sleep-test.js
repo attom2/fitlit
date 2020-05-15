@@ -193,6 +193,10 @@ describe('Sleep', () => {
     expect(sleep.sleepQualityForAWeek("2019/06/20", 2)).to.equal(null)
     expect(sleep.sleepQualityForAWeek()).to.equal(null)
   })
+  it('should return null if no data present', () => {
+    const sadSleep = new Sleep();
+    expect(sadSleep.sleepQualityForAWeek()).to.equal(null)
+  })
   it('should return hours slept each day for a given week', () => {
     expect(sleep.sleepHoursForAWeek(2, "2019/06/21")).to.deep.equal([5.7, 6.6, 3.3, 5.8, 1.2, 5.3,5.4])
   })
@@ -204,4 +208,50 @@ describe('Sleep', () => {
     expect(sleep.sleepHoursForAWeek("2019/06/20", 2)).to.equal(null)
     expect(sleep.sleepHoursForAWeek()).to.equal(null)
   })
+  it('should return null if no data present', () => {
+    const sadSleep = new Sleep();
+    expect(sadSleep.sleepHoursForAWeek()).to.equal(null)
+  })
+  it('should calculate average sleep quality of all users', () => {
+    expect(sleep.sleepQualityForAllUsers()).to.equal(5)
+  })
+  it('should return null if no data present', () => {
+    const sadSleep = new Sleep();
+    expect(sadSleep.sleepQualityForAllUsers()).to.equal(null)
+  })
+  it('Find all users whose weekly sleep quality is greater than 3', () => {
+    expect(sleep.qualityGreaterThanThree("2019/06/22")).to.eql([1,2])
+  })
+  it('only allows for users who have all 7 days of sleep data', () => {
+    let extraData = [{
+      "userID": 23,
+      "date": "2019/06/16",
+      "hoursSlept": 8,
+      "sleepQuality" : 4.5
+    },{
+      "userID": 23,
+      "date": "2019/06/17",
+      "hoursSlept": 8,
+      "sleepQuality" : 4.5
+    },{
+      "userID": 23,
+      "date": "2019/06/18",
+      "hoursSlept": 8,
+      "sleepQuality" : 4.5
+    },{
+      "userID": 23,
+      "date": "2019/06/19",
+      "hoursSlept": 8,
+      "sleepQuality" : 4.5
+    },{
+      "userID": 23,
+      "date": "2019/06/20",
+      "hoursSlept": 8,
+      "sleepQuality" : 4.5
+    }]
+    let sadSleepData = sleepData.concat(extraData);
+    const sadSleep = new Sleep(sadSleepData);
+    expect(sadSleep.qualityGreaterThanThree("2019/06/22")).to.eql([1,2])
+  })
+
 });

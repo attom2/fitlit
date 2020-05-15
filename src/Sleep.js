@@ -26,38 +26,72 @@ class Sleep {
     return userDetails ? userDetails.hoursSlept : null;
   }
   sleepQualityOnADate(id, date) {
+    if(!this.data) {
+      return null;
+    }
     let filteredData = this.data.filter(day => day.userID === id);
     let userDetails = filteredData.find(element => element.date === date)
     return userDetails ? userDetails.sleepQuality : null;
   }
   sleepQualityForAWeek(id, date) {
+    if(!this.data) {
+      return null;
+    }
     let filteredData = this.data.filter(day => day.userID === id);
     let dates = filteredData.map(element => element.date);
     let index = dates.indexOf(date) + 1;
-    let weekSleepQuality = [];
+    let weekSleepQualities = [];
     if(index){
       for(let i = 7; i > 0; i--){
-        weekSleepQuality.push(filteredData[index - i].sleepQuality);
+        weekSleepQualities.push(filteredData[index - i].sleepQuality);
       }
-      return weekSleepQuality;
+      return weekSleepQualities;
     }
     return null;
   }
   sleepHoursForAWeek(id, date) {
+    if(!this.data) {
+      return null;
+    }
     let filteredData = this.data.filter(day => day.userID === id);
     let dates = filteredData.map(element => element.date);
     let index = dates.indexOf(date) + 1;
-    let weekSleepQuality = [];
+    let weekSleepQualities = [];
     if(index){
       for(let i = 7; i > 0; i--){
-        weekSleepQuality.push(filteredData[index - i].hoursSlept);
+        weekSleepQualities.push(filteredData[index - i].hoursSlept);
       }
-      return weekSleepQuality;
+      return weekSleepQualities;
     }
     return null;
   }
 
+  sleepQualityForAllUsers() {
+    return this.data ? Math.floor(this.data.reduce((acc, currentValue) => {
+      return acc + currentValue.sleepQuality
+    }, 0) / this.data.length) : null;
+  }
+  qualityGreaterThanThree(date) {
+    let results = [];
+    const users = this.data.map(entry => entry.userID);
+    const uniqUsers = [...new Set(users)];
+    for(let i = 0; i < uniqUsers.length; i++){
+      let weekSleepQualities = this.sleepQualityForAWeek(uniqUsers[i], date)
+      if(!weekSleepQualities){
+        continue;
+      }
+      let sumOfSleepQuality = weekSleepQualities.reduce((acc, currentValue) => {
+        return acc + currentValue
+      },0)
+      if((sumOfSleepQuality / 7) > 3) {
+        results.push(uniqUsers[i]);
+      }
+    }
+    return results;
+    //uniqUsers.forEach((user, i) => this.data.sleepQualityForAWeek(uniqUsers[i], date))
+  }
 }
+
 if(typeof module !== 'undefined') {
   module.exports = Sleep;
 }
