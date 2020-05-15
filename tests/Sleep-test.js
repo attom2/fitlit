@@ -166,7 +166,7 @@ describe('Sleep', () => {
     expect(sleep.hoursSleptOnADate("2019/06/20", 2)).to.equal(null)
     expect(sleep.hoursSleptOnADate()).to.equal(null)
   })
-  it('should return hours slept on a given day', () => {
+  it('should return sleep quality on a given day', () => {
     expect(sleep.sleepQualityOnADate(1, "2019/06/15")).to.equal(10)
     expect(sleep.sleepQualityOnADate(1, "2019/06/16")).to.equal(7.1)
     expect(sleep.sleepQualityOnADate(1, "2019/06/17")).to.equal(20)
@@ -182,4 +182,76 @@ describe('Sleep', () => {
     expect(sleep.sleepQualityOnADate("2019/06/20", 2)).to.equal(null)
     expect(sleep.sleepQualityOnADate()).to.equal(null)
   })
+  it('should return sleep quality each day for a given week', () => {
+    expect(sleep.sleepQualityForAWeek(2, "2019/06/21")).to.deep.equal([2.1, 3.6, 1, 3.2, 0.3, 5, 3.9])
+  })
+  it('should only accept valid user id and date', () => {
+    expect(sleep.sleepQualityForAWeek(1.1, "2019/06/19")).to.equal(null)
+    expect(sleep.sleepQualityForAWeek([], "2019/06/20")).to.equal(null)
+    expect(sleep.sleepQualityForAWeek(1, "2019/06/40")).to.equal(null)
+    expect(sleep.sleepQualityForAWeek(2, 3)).to.equal(null)
+    expect(sleep.sleepQualityForAWeek("2019/06/20", 2)).to.equal(null)
+    expect(sleep.sleepQualityForAWeek()).to.equal(null)
+  })
+  it('should return null if no data present', () => {
+    const sadSleep = new Sleep();
+    expect(sadSleep.sleepQualityForAWeek()).to.equal(null)
+  })
+  it('should return hours slept each day for a given week', () => {
+    expect(sleep.sleepHoursForAWeek(2, "2019/06/21")).to.deep.equal([5.7, 6.6, 3.3, 5.8, 1.2, 5.3,5.4])
+  })
+  it('should only accept valid user id and date', () => {
+    expect(sleep.sleepHoursForAWeek(1.1, "2019/06/19")).to.equal(null)
+    expect(sleep.sleepHoursForAWeek([], "2019/06/20")).to.equal(null)
+    expect(sleep.sleepHoursForAWeek(1, "2019/06/40")).to.equal(null)
+    expect(sleep.sleepHoursForAWeek(2, 3)).to.equal(null)
+    expect(sleep.sleepHoursForAWeek("2019/06/20", 2)).to.equal(null)
+    expect(sleep.sleepHoursForAWeek()).to.equal(null)
+  })
+  it('should return null if no data present', () => {
+    const sadSleep = new Sleep();
+    expect(sadSleep.sleepHoursForAWeek()).to.equal(null)
+  })
+  it('should calculate average sleep quality of all users', () => {
+    expect(sleep.sleepQualityForAllUsers()).to.equal(5)
+  })
+  it('should return null if no data present', () => {
+    const sadSleep = new Sleep();
+    expect(sadSleep.sleepQualityForAllUsers()).to.equal(null)
+  })
+  it('Find all users whose weekly sleep quality is greater than 3', () => {
+    expect(sleep.qualityGreaterThanThree("2019/06/22")).to.eql([1,2])
+  })
+  it('only allows for users who have all 7 days of sleep data', () => {
+    let extraData = [{
+      "userID": 23,
+      "date": "2019/06/16",
+      "hoursSlept": 8,
+      "sleepQuality" : 4.5
+    },{
+      "userID": 23,
+      "date": "2019/06/17",
+      "hoursSlept": 8,
+      "sleepQuality" : 4.5
+    },{
+      "userID": 23,
+      "date": "2019/06/18",
+      "hoursSlept": 8,
+      "sleepQuality" : 4.5
+    },{
+      "userID": 23,
+      "date": "2019/06/19",
+      "hoursSlept": 8,
+      "sleepQuality" : 4.5
+    },{
+      "userID": 23,
+      "date": "2019/06/20",
+      "hoursSlept": 8,
+      "sleepQuality" : 4.5
+    }]
+    let sadSleepData = sleepData.concat(extraData);
+    const sadSleep = new Sleep(sadSleepData);
+    expect(sadSleep.qualityGreaterThanThree("2019/06/22")).to.eql([1,2])
+  })
+
 });
