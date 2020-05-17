@@ -53,11 +53,5 @@ function displayUserSleep(userDetails, today, sleep) {
    for(let i = 0; i < 7; i++){
      weeklySleepDiv.innerText += `Day ${i + 1} : ${weeklySleptHours[i]} hours. ${weeklySleepQuality[i]} quality. \n`
    }
-   weeklySleepDiv.innerText += `Average all time : ${allTimeSleptHours} hours slept with ${allTimeSleepQuality} sleep quality`
-   // weeklySleepDiv.innerText = `You slept ${weeklySleptHours} hours this week with a sleep quality of ${weeklySleepQuality}!`
-  // let averageWaterConsumption = hydration.dailyAverage(user.id)
-  // let weeklyWaterConsumption = JSON.stringify(hydration.weeklyAmounts(user.id, today));
+    weeklySleepDiv.innerText += `Average all time : ${allTimeSleptHours} hours slept with ${allTimeSleepQuality} sleep quality`;
 }
-
-
-//var userRep = new UserRepository(userData);
