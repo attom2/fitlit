@@ -67,9 +67,10 @@ class Sleep {
   }
 
   sleepQualityForAllUsers() {
-    return this.data ? Math.floor(this.data.reduce((acc, currentValue) => {
+    let results = this.data ? Math.floor(this.data.reduce((acc, currentValue) => {
       return acc + currentValue.sleepQuality
     }, 0) / this.data.length) : null;
+    return results;
   }
   qualityGreaterThanThree(date) {
     let results = [];
@@ -89,6 +90,12 @@ class Sleep {
     }
     return results;
     //uniqUsers.forEach((user, i) => this.data.sleepQualityForAWeek(uniqUsers[i], date))
+  }
+  sleepScoreOnADate(id, date) {
+    let filteredData = this.data.filter(day => day.userID === id)
+    let userDetails = filteredData.find(element => element.date === date);
+    let results = userDetails ? Math.floor(userDetails.sleepQuality * userDetails.hoursSlept) : null;
+    return results;
   }
 }
 

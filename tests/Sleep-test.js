@@ -253,5 +253,20 @@ describe('Sleep', () => {
     const sadSleep = new Sleep(sadSleepData);
     expect(sadSleep.qualityGreaterThanThree("2019/06/22")).to.eql([1,2])
   })
-
+  it('should return sleep score on a given day', () => {
+    expect(sleep.sleepScoreOnADate(1, "2019/06/15")).to.equal(99)
+    expect(sleep.sleepScoreOnADate(1, "2019/06/16")).to.equal(56)
+    expect(sleep.sleepScoreOnADate(1, "2019/06/17")).to.equal(196)
+    expect(sleep.sleepScoreOnADate(2, "2019/06/19")).to.equal(0)
+    expect(sleep.sleepScoreOnADate(2, "2019/06/20")).to.equal(26)
+    expect(sleep.sleepScoreOnADate(2, "2019/06/21")).to.equal(21)
+  })
+  it('should only accept valid user id and date', () => {
+    expect(sleep.sleepScoreOnADate(1.1, "2019/06/19")).to.equal(null)
+    expect(sleep.sleepScoreOnADate([], "2019/06/20")).to.equal(null)
+    expect(sleep.sleepScoreOnADate(1, "2019/06/40")).to.equal(null)
+    expect(sleep.sleepScoreOnADate(2, 3)).to.equal(null)
+    expect(sleep.sleepScoreOnADate("2019/06/20", 2)).to.equal(null)
+    expect(sleep.sleepScoreOnADate()).to.equal(null)
+  })
 });
