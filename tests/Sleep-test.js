@@ -261,5 +261,12 @@ describe('Sleep', () => {
     expect(sleep.sleepScoreOnADate(2, "2019/06/20")).to.equal(26)
     expect(sleep.sleepScoreOnADate(2, "2019/06/21")).to.equal(21)
   })
-
+  it('should only accept valid user id and date', () => {
+    expect(sleep.sleepScoreOnADate(1.1, "2019/06/19")).to.equal(null)
+    expect(sleep.sleepScoreOnADate([], "2019/06/20")).to.equal(null)
+    expect(sleep.sleepScoreOnADate(1, "2019/06/40")).to.equal(null)
+    expect(sleep.sleepScoreOnADate(2, 3)).to.equal(null)
+    expect(sleep.sleepScoreOnADate("2019/06/20", 2)).to.equal(null)
+    expect(sleep.sleepScoreOnADate()).to.equal(null)
+  })
 });
