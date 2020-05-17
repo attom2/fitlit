@@ -90,6 +90,12 @@ class Sleep {
     return results;
     //uniqUsers.forEach((user, i) => this.data.sleepQualityForAWeek(uniqUsers[i], date))
   }
+  sleepScoreOnADate(id, date) {
+    let filteredData = this.data.filter(day => day.userID === id)
+    let userDetails = filteredData.find(element => element.date === date)
+    let results = Math.floor(userDetails.sleepQuality * userDetails.hoursSlept);
+    return results;
+  }
 }
 
 if(typeof module !== 'undefined') {
