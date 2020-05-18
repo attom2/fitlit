@@ -67,58 +67,58 @@ describe('Activity', () => {
     }, {
       "userID": 8,
       "date": "2019/06/15",
-      "numSteps": 3577,
-      "minutesActive": 140,
-      "flightsOfStairs": 16
+      "numSteps": 100,
+      "minutesActive": 15,
+      "flightsOfStairs": 2
     },
     {
       "userID": 8,
       "date": "2019/06/16",
-      "numSteps": 4294,
-      "minutesActive": 138,
-      "flightsOfStairs": 10
+      "numSteps": 1202,
+      "minutesActive": 43,
+      "flightsOfStairs": 4
     },
     {
       "userID": 8,
       "date": "2019/06/17",
-      "numSteps": 7402,
-      "minutesActive": 116,
-      "flightsOfStairs": 33
+      "numSteps": 1234,
+      "minutesActive": 32,
+      "flightsOfStairs": 45
     },
     {
       "userID": 8,
       "date": "2019/06/18",
-      "numSteps": 3486,
-      "minutesActive": 114,
-      "flightsOfStairs": 32
+      "numSteps": 432,
+      "minutesActive": 33,
+      "flightsOfStairs": 12
     },
     {
       "userID": 8,
       "date": "2019/06/19",
-      "numSteps": 11374,
-      "minutesActive": 213,
-      "flightsOfStairs": 13
+      "numSteps": 234,
+      "minutesActive": 12,
+      "flightsOfStairs": 3
     },
     {
       "userID": 8,
       "date": "2019/06/20",
-      "numSteps": 14810,
-      "minutesActive": 287,
-      "flightsOfStairs": 18
+      "numSteps": 304,
+      "minutesActive": 90,
+      "flightsOfStairs": 2
     },
     {
       "userID": 8,
       "date": "2019/06/21",
-      "numSteps": 2634,
-      "minutesActive": 107,
-      "flightsOfStairs": 5
+      "numSteps": 321,
+      "minutesActive": 23,
+      "flightsOfStairs": 6
     },
     {
       "userID": 8,
       "date": "2019/06/22",
-      "numSteps": 10333,
-      "minutesActive": 114,
-      "flightsOfStairs": 31
+      "numSteps": 344,
+      "minutesActive": 21,
+      "flightsOfStairs": 3
     },
     ];
     userData = [
@@ -152,7 +152,7 @@ describe('Activity', () => {
       },
 
     ];
-   
+
     user5 = new User(userData[0])
     user8 = new User(userData[1])
     activity = new Activity(activityData, userData, )
@@ -180,8 +180,30 @@ describe('Activity', () => {
   });
   it('should return miles walked for on a specific day for a user', () => {
     expect(activity.returnMilesWalkedOnADate(5,"2019/06/21")).to.equal(1.55);
-    expect(activity.returnMilesWalkedOnADate(8,"2019/06/21")).to.equal(1.4);
+    expect(activity.returnMilesWalkedOnADate(8,"2019/06/21")).to.equal(.17);
     expect(activity.returnMilesWalkedOnADate(5,"2019/06/20")).to.equal(8.7);
-    expect(activity.returnMilesWalkedOnADate(8,"2019/06/20")).to.equal(7.85);
+    expect(activity.returnMilesWalkedOnADate(8,"2019/06/20")).to.equal(.16);
+  });
+  it('should return miles walked for on a specific day for a user', () => {
+    expect(activity.returnMilesWalkedOnADate(1.1, "2019/06/19")).to.equal(null)
+    expect(activity.returnMilesWalkedOnADate([], "2019/06/20")).to.equal(null)
+    expect(activity.returnMilesWalkedOnADate(1, "2019/06/40")).to.equal(null)
+    expect(activity.returnMilesWalkedOnADate(2, 3)).to.equal(null)
+    expect(activity.returnMilesWalkedOnADate("2019/06/20", 2)).to.equal(null)
+    expect(activity.returnMilesWalkedOnADate()).to.equal(null)
+  });
+  it('should return minutes active on a specific day for a user', () => {
+    expect(activity.returnMinutesActiveOnADate(5,"2019/06/21")).to.equal(107);
+    expect(activity.returnMinutesActiveOnADate(8,"2019/06/21")).to.equal(23);
+    expect(activity.returnMinutesActiveOnADate(5,"2019/06/20")).to.equal(287);
+    expect(activity.returnMinutesActiveOnADate(8,"2019/06/20")).to.equal(90);
+  });
+  it('should return miles walked for on a specific day for a user', () => {
+    expect(activity.returnMinutesActiveOnADate(1.1, "2019/06/19")).to.equal(null)
+    expect(activity.returnMinutesActiveOnADate([], "2019/06/20")).to.equal(null)
+    expect(activity.returnMinutesActiveOnADate(1, "2019/06/40")).to.equal(null)
+    expect(activity.returnMinutesActiveOnADate(2, 3)).to.equal(null)
+    expect(activity.returnMinutesActiveOnADate("2019/06/20", 2)).to.equal(null)
+    expect(activity.returnMinutesActiveOnADate()).to.equal(null)
   });
 })
