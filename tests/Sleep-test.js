@@ -269,4 +269,54 @@ describe('Sleep', () => {
     expect(sleep.sleepScoreOnADate("2019/06/20", 2)).to.equal(null)
     expect(sleep.sleepScoreOnADate()).to.equal(null)
   })
+  it('should return user id with the most hours slept on a day', () => {
+    expect(sleep.findUserSleptTheMostOnADay("2019/06/21")).to.eql([1])
+    expect(sleep.findUserSleptTheMostOnADay("2019/06/22")).to.eql([2])
+    expect(sleep.findUserSleptTheMostOnADay("2019/06/15")).to.eql([1])
+  })
+  it('should only accept valid date', () => {
+    expect(sleep.findUserSleptTheMostOnADay()).to.equal(null);
+    expect(sleep.findUserSleptTheMostOnADay('trash')).to.equal(null);
+    expect(sleep.findUserSleptTheMostOnADay(678)).to.equal(null);
+    expect(sleep.findUserSleptTheMostOnADay({})).to.equal(null);
+    expect(sleep.findUserSleptTheMostOnADay(2.1)).to.equal(null);
+
+  })
+  it('should return both ids if multiple users slept the most hours on given date', () => {
+    let extraData = [{
+      "userID": 23,
+      "date": "2019/06/16",
+      "hoursSlept": 8,
+      "sleepQuality" : 4.5
+    },{
+      "userID": 9,
+      "date": "2019/06/16",
+      "hoursSlept": 8,
+      "sleepQuality" : 4.5
+    },{
+      "userID": 23,
+      "date": "2019/06/17",
+      "hoursSlept": 8,
+      "sleepQuality" : 4.5
+    },{
+      "userID": 23,
+      "date": "2019/06/18",
+      "hoursSlept": 8,
+      "sleepQuality" : 4.5
+    },{
+      "userID": 23,
+      "date": "2019/06/19",
+      "hoursSlept": 8,
+      "sleepQuality" : 4.5
+    },{
+      "userID": 23,
+      "date": "2019/06/20",
+      "hoursSlept": 7.7,
+      "sleepQuality" : 4.5
+    }]
+    let extraSleepData = sleepData.concat(extraData);
+    const extraSleep = new Sleep(extraSleepData);
+    expect(extraSleep.findUserSleptTheMostOnADay("2019/06/20")).to.eql([1, 23])
+    expect(extraSleep.findUserSleptTheMostOnADay("2019/06/16")).to.eql([1, 9, 23])
+  })
 });
