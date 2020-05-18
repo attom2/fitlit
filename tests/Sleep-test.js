@@ -317,6 +317,6 @@ describe('Sleep', () => {
     let extraSleepData = sleepData.concat(extraData);
     const extraSleep = new Sleep(extraSleepData);
     expect(extraSleep.findUserSleptTheMostOnADay("2019/06/20")).to.eql([1, 23])
-    expect(extraSleep.findUserSleptTheMostOnADay("2019/06/16")).to.eql([1, 9, 23])
+    expect(extraSleep.findUserSleptTheMostOnADay("2019/06/16")).to.eql([1, 23, 9])
   })
 });
