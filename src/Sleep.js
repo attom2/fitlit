@@ -92,25 +92,20 @@ class Sleep {
     //uniqUsers.forEach((user, i) => this.data.sleepQualityForAWeek(uniqUsers[i], date))
   }
   sleepScoreOnADate(id, date) {
-    let filteredData = this.data.filter(day => day.userID === id)
+    let filteredData = this.data.filter(day => day.userID === id);
     let userDetails = filteredData.find(element => element.date === date);
     let results = userDetails ? Math.floor(userDetails.sleepQuality * userDetails.hoursSlept) : null;
     return results;
   }
   findUserSleptTheMostOnADay(date) {
     let filteredData = this.data.filter(day => day.date === date);
-    let sleptMostHours = 0;
-    let sleptMostId = filteredData.reduce((acc, user) => {
-      if(user.hoursSlept >= sleptMostHours) {
-        if(user.hoursSlept > sleptMostHours) {
-          acc.shift();
-        }
-        sleptMostHours = user.hoursSlept
-        acc.push(user.userID);
-      }
-      return acc;
-    }, []);
-    return sleptMostId[0] === undefined ? null : sleptMostId.sort((a, b) => a - b);
+    let sortedData = filteredData.sort((a,b) => a.hoursSlept - b.hoursSlept)
+    if(!sortedData.length) {
+      return null;
+    }
+    let mostSleptUsers = sortedData.filter((entry) => entry.hoursSlept === sortedData[sortedData.length - 1].hoursSlept).map(entry => entry.userID);
+
+    return mostSleptUsers;
   }
 }
 
