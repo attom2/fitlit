@@ -34,6 +34,14 @@ class Activity {
     }
     return null;
   }
+  returnIfUserMetStepGoal(id, date) {
+    let userInfo = this.data.find(user => user.userID === id && user.date === date);
+    if(!userInfo){
+      return null;
+    }
+    let stepGoal = this.userData.find(user => user.id === id).dailyStepGoal
+    return userInfo.numSteps >= stepGoal
+  }
 
 }
 

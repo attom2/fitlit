@@ -218,4 +218,18 @@ describe('Activity', () => {
     expect(activity.returnAvgMinsActiveForAWeek("2019/06/20", 2)).to.equal(null)
     expect(activity.returnAvgMinsActiveForAWeek()).to.equal(null)
   });
+  it('should return if a user met their step goal', () => {
+    expect(activity.returnIfUserMetStepGoal(5,"2019/06/22")).to.equal(true);
+    expect(activity.returnIfUserMetStepGoal(8,"2019/06/22")).to.equal(false);
+  });
+  
+  it('should return null if passed incorrect arguments', () => {
+    expect(activity.returnIfUserMetStepGoal(1.1, "2019/06/19")).to.equal(null)
+    expect(activity.returnIfUserMetStepGoal([], "2019/06/20")).to.equal(null)
+    expect(activity.returnIfUserMetStepGoal(1, "2019/06/40")).to.equal(null)
+    expect(activity.returnIfUserMetStepGoal(2, 3)).to.equal(null)
+    expect(activity.returnIfUserMetStepGoal("2019/06/20", 2)).to.equal(null)
+    expect(activity.returnIfUserMetStepGoal()).to.equal(null)
+  });
+
 })
