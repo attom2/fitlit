@@ -13,111 +13,111 @@ describe('Activity', () => {
       "userID": 5,
       "date": "2019/06/15",
       "numSteps": 3577,
-      "minutesActive": 140,
+      "MinsActive": 140,
       "flightsOfStairs": 16
     },
     {
       "userID": 5,
       "date": "2019/06/16",
       "numSteps": 4294,
-      "minutesActive": 138,
+      "MinsActive": 138,
       "flightsOfStairs": 10
     },
     {
       "userID": 5,
       "date": "2019/06/17",
       "numSteps": 7402,
-      "minutesActive": 116,
+      "MinsActive": 116,
       "flightsOfStairs": 33
     },
     {
       "userID": 5,
       "date": "2019/06/18",
       "numSteps": 3486,
-      "minutesActive": 114,
+      "MinsActive": 114,
       "flightsOfStairs": 32
     },
     {
       "userID": 5,
       "date": "2019/06/19",
       "numSteps": 11374,
-      "minutesActive": 213,
+      "MinsActive": 213,
       "flightsOfStairs": 13
     },
     {
       "userID": 5,
       "date": "2019/06/20",
       "numSteps": 14810,
-      "minutesActive": 287,
+      "MinsActive": 287,
       "flightsOfStairs": 18
     },
     {
       "userID": 5,
       "date": "2019/06/21",
       "numSteps": 2634,
-      "minutesActive": 107,
+      "MinsActive": 107,
       "flightsOfStairs": 5
     },
     {
       "userID": 5,
       "date": "2019/06/22",
       "numSteps": 10333,
-      "minutesActive": 114,
+      "MinsActive": 114,
       "flightsOfStairs": 31
     }, {
       "userID": 8,
       "date": "2019/06/15",
       "numSteps": 100,
-      "minutesActive": 15,
+      "MinsActive": 15,
       "flightsOfStairs": 2
     },
     {
       "userID": 8,
       "date": "2019/06/16",
       "numSteps": 1202,
-      "minutesActive": 43,
+      "MinsActive": 43,
       "flightsOfStairs": 4
     },
     {
       "userID": 8,
       "date": "2019/06/17",
       "numSteps": 1234,
-      "minutesActive": 32,
+      "MinsActive": 32,
       "flightsOfStairs": 45
     },
     {
       "userID": 8,
       "date": "2019/06/18",
       "numSteps": 432,
-      "minutesActive": 33,
+      "MinsActive": 33,
       "flightsOfStairs": 12
     },
     {
       "userID": 8,
       "date": "2019/06/19",
       "numSteps": 234,
-      "minutesActive": 12,
+      "MinsActive": 12,
       "flightsOfStairs": 3
     },
     {
       "userID": 8,
       "date": "2019/06/20",
       "numSteps": 304,
-      "minutesActive": 90,
+      "MinsActive": 90,
       "flightsOfStairs": 2
     },
     {
       "userID": 8,
       "date": "2019/06/21",
       "numSteps": 321,
-      "minutesActive": 23,
+      "MinsActive": 23,
       "flightsOfStairs": 6
     },
     {
       "userID": 8,
       "date": "2019/06/22",
       "numSteps": 344,
-      "minutesActive": 21,
+      "MinsActive": 21,
       "flightsOfStairs": 3
     },
     ];
@@ -192,18 +192,30 @@ describe('Activity', () => {
     expect(activity.returnMilesWalkedOnADate("2019/06/20", 2)).to.equal(null)
     expect(activity.returnMilesWalkedOnADate()).to.equal(null)
   });
-  it('should return minutes active on a specific day for a user', () => {
-    expect(activity.returnMinutesActiveOnADate(5,"2019/06/21")).to.equal(107);
-    expect(activity.returnMinutesActiveOnADate(8,"2019/06/21")).to.equal(23);
-    expect(activity.returnMinutesActiveOnADate(5,"2019/06/20")).to.equal(287);
-    expect(activity.returnMinutesActiveOnADate(8,"2019/06/20")).to.equal(90);
+  it('should return Mins active on a specific day for a user', () => {
+    expect(activity.returnMinsActiveOnADate(5,"2019/06/21")).to.equal(107);
+    expect(activity.returnMinsActiveOnADate(8,"2019/06/21")).to.equal(23);
+    expect(activity.returnMinsActiveOnADate(5,"2019/06/20")).to.equal(287);
+    expect(activity.returnMinsActiveOnADate(8,"2019/06/20")).to.equal(90);
   });
-  it('should return miles walked for on a specific day for a user', () => {
-    expect(activity.returnMinutesActiveOnADate(1.1, "2019/06/19")).to.equal(null)
-    expect(activity.returnMinutesActiveOnADate([], "2019/06/20")).to.equal(null)
-    expect(activity.returnMinutesActiveOnADate(1, "2019/06/40")).to.equal(null)
-    expect(activity.returnMinutesActiveOnADate(2, 3)).to.equal(null)
-    expect(activity.returnMinutesActiveOnADate("2019/06/20", 2)).to.equal(null)
-    expect(activity.returnMinutesActiveOnADate()).to.equal(null)
+  it('should return null if passed incorrect arguments', () => {
+    expect(activity.returnMinsActiveOnADate(1.1, "2019/06/19")).to.equal(null)
+    expect(activity.returnMinsActiveOnADate([], "2019/06/20")).to.equal(null)
+    expect(activity.returnMinsActiveOnADate(1, "2019/06/40")).to.equal(null)
+    expect(activity.returnMinsActiveOnADate(2, 3)).to.equal(null)
+    expect(activity.returnMinsActiveOnADate("2019/06/20", 2)).to.equal(null)
+    expect(activity.returnMinsActiveOnADate()).to.equal(null)
+  });
+  it('should return average Mins active for 7 days for a user', () => {
+    expect(activity.returnAvgMinsActiveForAWeek(5,"2019/06/22")).to.equal(155.57);
+    expect(activity.returnAvgMinsActiveForAWeek(8,"2019/06/22")).to.equal(36.29);
+  });
+  it('should return null if passed incorrect arguments', () => {
+    expect(activity.returnAvgMinsActiveForAWeek(1.1, "2019/06/19")).to.equal(null)
+    expect(activity.returnAvgMinsActiveForAWeek([], "2019/06/20")).to.equal(null)
+    expect(activity.returnAvgMinsActiveForAWeek(1, "2019/06/40")).to.equal(null)
+    expect(activity.returnAvgMinsActiveForAWeek(2, 3)).to.equal(null)
+    expect(activity.returnAvgMinsActiveForAWeek("2019/06/20", 2)).to.equal(null)
+    expect(activity.returnAvgMinsActiveForAWeek()).to.equal(null)
   });
 })
