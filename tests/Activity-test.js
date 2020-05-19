@@ -231,5 +231,58 @@ describe('Activity', () => {
     expect(activity.returnIfUserMetStepGoal("2019/06/20", 2)).to.equal(null)
     expect(activity.returnIfUserMetStepGoal()).to.equal(null)
   });
-
+  it('should find all days where they exceeded their step goal', () => {
+    expect(activity.findAllDaysAboveStepGoal(5)).to.eql([ '2019/06/19', '2019/06/20', '2019/06/22' ])
+    expect(activity.findAllDaysAboveStepGoal(8)).to.eql(null)
+  })
+  it('should accept only valid user id', () => {
+    expect(activity.findAllDaysAboveStepGoal(1.1)).to.equal(null)
+    expect(activity.findAllDaysAboveStepGoal([])).to.equal(null)
+    expect(activity.findAllDaysAboveStepGoal(1)).to.equal(null)
+    expect(activity.findAllDaysAboveStepGoal(2)).to.equal(null)
+    expect(activity.findAllDaysAboveStepGoal("2019/06/20")).to.equal(null)
+    expect(activity.findAllDaysAboveStepGoal()).to.equal(null)
+  })
+  it('should find all time stair climbing record', () => {
+    expect(activity.returnStairClimbingTotal(5)).to.equal(158)
+    expect(activity.returnStairClimbingTotal(8)).to.equal(77)
+  })
+  it('should accept only valid user id', () => {
+    expect(activity.returnStairClimbingTotal(1.1)).to.equal(null)
+    expect(activity.returnStairClimbingTotal([])).to.equal(null)
+    expect(activity.returnStairClimbingTotal(1)).to.equal(null)
+    expect(activity.returnStairClimbingTotal(2)).to.equal(null)
+    expect(activity.returnStairClimbingTotal("2019/06/20")).to.equal(null)
+    expect(activity.returnStairClimbingTotal()).to.equal(null)
+  })
+  it('should return average of all users for: stairs climbed, steps taken, minutes active for a specific date', () => {
+    expect(activity.returnUsersAverageStairsStepsMins("2019/06/20")).to.eql(
+      { 
+        date: "2019/06/20",
+        numSteps: 7557, 
+        flightsOfStairs: 10, 
+        MinsActive: 188.5 
+    })
+    expect(activity.returnUsersAverageStairsStepsMins("2019/06/22")).to.eql(
+      { 
+        date: "2019/06/22",
+        numSteps: 5338.5, 
+        flightsOfStairs: 17, 
+        MinsActive: 67.5 
+    })
+    expect(activity.returnUsersAverageStairsStepsMins("2019/06/15")).to.eql(
+      { 
+        date: "2019/06/15",
+        numSteps: 1838.5, 
+        flightsOfStairs: 9, 
+        MinsActive: 77.5 
+    })
+  })
+  it('should accept only valid date', () => {
+    expect(activity.returnUsersAverageStairsStepsMins(1.1)).to.equal(null)
+    expect(activity.returnUsersAverageStairsStepsMins([])).to.equal(null)
+    expect(activity.returnUsersAverageStairsStepsMins(1)).to.equal(null)
+    expect(activity.returnUsersAverageStairsStepsMins(2)).to.equal(null)
+    expect(activity.returnUsersAverageStairsStepsMins()).to.equal(null)
+  })
 })
