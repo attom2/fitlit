@@ -155,7 +155,7 @@ describe('Activity', () => {
 
     user5 = new User(userData[0])
     user8 = new User(userData[1])
-    activity = new Activity(activityData, userData, )
+    activity = new Activity(activityData, userData )
   });
   it('should be a function', () => {
     expect(Activity).to.be.a('function');
@@ -222,7 +222,7 @@ describe('Activity', () => {
     expect(activity.returnIfUserMetStepGoal(5,"2019/06/22")).to.equal(true);
     expect(activity.returnIfUserMetStepGoal(8,"2019/06/22")).to.equal(false);
   });
-  
+
   it('should return null if passed incorrect arguments', () => {
     expect(activity.returnIfUserMetStepGoal(1.1, "2019/06/19")).to.equal(null)
     expect(activity.returnIfUserMetStepGoal([], "2019/06/20")).to.equal(null)
@@ -257,25 +257,25 @@ describe('Activity', () => {
   })
   it('should return average of all users for: stairs climbed, steps taken, minutes active for a specific date', () => {
     expect(activity.returnUsersAverageStairsStepsMins("2019/06/20")).to.eql(
-      { 
+      {
         date: "2019/06/20",
-        numSteps: 7557, 
-        flightsOfStairs: 10, 
-        MinsActive: 188.5 
+        numSteps: 7557,
+        flightsOfStairs: 10,
+        MinsActive: 188.5
     })
     expect(activity.returnUsersAverageStairsStepsMins("2019/06/22")).to.eql(
-      { 
+      {
         date: "2019/06/22",
-        numSteps: 5338.5, 
-        flightsOfStairs: 17, 
-        MinsActive: 67.5 
+        numSteps: 5338.5,
+        flightsOfStairs: 17,
+        MinsActive: 67.5
     })
     expect(activity.returnUsersAverageStairsStepsMins("2019/06/15")).to.eql(
-      { 
+      {
         date: "2019/06/15",
-        numSteps: 1838.5, 
-        flightsOfStairs: 9, 
-        MinsActive: 77.5 
+        numSteps: 1838.5,
+        flightsOfStairs: 9,
+        MinsActive: 77.5
     })
   })
   it('should accept only valid date', () => {
@@ -296,5 +296,128 @@ describe('Activity', () => {
     expect(activity.returnTotalFeetClimbed(2)).to.equal(null)
     expect(activity.returnTotalFeetClimbed("2019/06/20")).to.equal(null)
     expect(activity.returnTotalFeetClimbed()).to.equal(null)
+  })
+  it('should return days where activity was increasing for 3 days', () => {
+    expect(activity.returnIncreasingStepDays(8)).to.eql(["2019/06/22"])
+  })
+
+  it('should return days where activity was increasing for 3 days at multiple points', () => {
+    let increasingStepsData = [{
+      "userID": 5,
+      "date": "2019/06/15",
+      "numSteps": 87,
+      "MinsActive": 140,
+      "flightsOfStairs": 16
+    },
+    {
+      "userID": 5,
+      "date": "2019/06/16",
+      "numSteps": 294,
+      "MinsActive": 138,
+      "flightsOfStairs": 10
+    },
+    {
+      "userID": 5,
+      "date": "2019/06/17",
+      "numSteps": 402,
+      "MinsActive": 116,
+      "flightsOfStairs": 33
+    },
+    {
+      "userID": 5,
+      "date": "2019/06/18",
+      "numSteps": 486,
+      "MinsActive": 114,
+      "flightsOfStairs": 32
+    },
+    {
+      "userID": 5,
+      "date": "2019/06/19",
+      "numSteps": 11374,
+      "MinsActive": 213,
+      "flightsOfStairs": 13
+    },
+    {
+      "userID": 5,
+      "date": "2019/06/20",
+      "numSteps": 140,
+      "MinsActive": 287,
+      "flightsOfStairs": 18
+    },
+    {
+      "userID": 5,
+      "date": "2019/06/21",
+      "numSteps": 264,
+      "MinsActive": 107,
+      "flightsOfStairs": 5
+    },
+    {
+      "userID": 5,
+      "date": "2019/06/22",
+      "numSteps": 1033,
+      "MinsActive": 114,
+      "flightsOfStairs": 31
+    }, {
+      "userID": 8,
+      "date": "2019/06/15",
+      "numSteps": 10,
+      "MinsActive": 15,
+      "flightsOfStairs": 2
+    },
+    {
+      "userID": 8,
+      "date": "2019/06/16",
+      "numSteps": 122,
+      "MinsActive": 43,
+      "flightsOfStairs": 4
+    },
+    {
+      "userID": 8,
+      "date": "2019/06/17",
+      "numSteps": 1234,
+      "MinsActive": 32,
+      "flightsOfStairs": 45
+    },
+    {
+      "userID": 8,
+      "date": "2019/06/18",
+      "numSteps": 4332,
+      "MinsActive": 33,
+      "flightsOfStairs": 12
+    },
+    {
+      "userID": 8,
+      "date": "2019/06/19",
+      "numSteps": 24,
+      "MinsActive": 12,
+      "flightsOfStairs": 3
+    },
+    {
+      "userID": 8,
+      "date": "2019/06/20",
+      "numSteps": 304,
+      "MinsActive": 90,
+      "flightsOfStairs": 2
+    },
+    {
+      "userID": 8,
+      "date": "2019/06/21",
+      "numSteps": 321,
+      "MinsActive": 23,
+      "flightsOfStairs": 6
+    },
+    {
+      "userID": 8,
+      "date": "2019/06/22",
+      "numSteps": 3344,
+      "MinsActive": 21,
+      "flightsOfStairs": 3
+    },
+    ];
+    let increasingActivity = new Activity(increasingStepsData, userData)
+
+    expect(increasingActivity.returnIncreasingStepDays(5)).to.eql(["2019/06/18","2019/06/19"])
+    expect(increasingActivity.returnIncreasingStepDays(8)).to.eql(["2019/06/18","2019/06/22"])
+
   })
 })
