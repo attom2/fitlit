@@ -285,4 +285,16 @@ describe('Activity', () => {
     expect(activity.returnUsersAverageStairsStepsMins(2)).to.equal(null)
     expect(activity.returnUsersAverageStairsStepsMins()).to.equal(null)
   })
+  it('should calculate total feet climbed for all time', () => {
+    expect(activity.returnTotalFeetClimbed(5)).to.equal(1896)
+    expect(activity.returnTotalFeetClimbed(8)).to.equal(924)
+  })
+  it('should accept only valid user id', () => {
+    expect(activity.returnTotalFeetClimbed(1.1)).to.equal(null)
+    expect(activity.returnTotalFeetClimbed([])).to.equal(null)
+    expect(activity.returnTotalFeetClimbed(1)).to.equal(null)
+    expect(activity.returnTotalFeetClimbed(2)).to.equal(null)
+    expect(activity.returnTotalFeetClimbed("2019/06/20")).to.equal(null)
+    expect(activity.returnTotalFeetClimbed()).to.equal(null)
+  })
 })

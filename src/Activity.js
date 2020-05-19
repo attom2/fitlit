@@ -83,6 +83,11 @@ class Activity {
     totals.MinsActive = Math.round((totals.MinsActive/ this.userData.length)  * 100) / 100;
     return totals;
   }
+  returnTotalFeetClimbed(id) {
+    let userInfo = this.data.filter(user => user.userID === id);
+    let totalFlights = userInfo.reduce((acc, currentValue) => acc + currentValue.flightsOfStairs, 0);
+    return totalFlights * 12 || null;
+  }
 }
 
 if(typeof module !== 'undefined') {
