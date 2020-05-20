@@ -1,12 +1,10 @@
+/* eslint-disable max-len */
 const chai = require('chai');
 const expect = chai.expect;
-const Activity = require('../src/Activity.js')
-const User = require('../src/User.js')
+const Activity = require('../src/Activity.js');
 let activityData;
 let userData;
 let activity;
-let user5;
-let user8
 describe('Activity', () => {
   beforeEach(() => {
     activityData = [{
@@ -136,7 +134,7 @@ describe('Activity', () => {
           33,
           10
         ]
-      },{
+      }, {
         "id": 8,
         "name": "Laney Abshire",
         "address": "86416 Koch Inlet, North Kaciefurt MA 80635",
@@ -152,9 +150,6 @@ describe('Activity', () => {
       },
 
     ];
-
-    user5 = new User(userData[0])
-    user8 = new User(userData[1])
     activity = new Activity(activityData, userData )
   });
   it('should be a function', () => {
@@ -179,10 +174,10 @@ describe('Activity', () => {
     expect(sadActivity3.userData).to.eql(null);
   });
   it('should return miles walked for on a specific day for a user', () => {
-    expect(activity.returnMilesWalkedOnADate(5,"2019/06/21")).to.equal(1.55);
-    expect(activity.returnMilesWalkedOnADate(8,"2019/06/21")).to.equal(.17);
-    expect(activity.returnMilesWalkedOnADate(5,"2019/06/20")).to.equal(8.7);
-    expect(activity.returnMilesWalkedOnADate(8,"2019/06/20")).to.equal(.16);
+    expect(activity.returnMilesWalkedOnADate(5, "2019/06/21")).to.equal(1.55);
+    expect(activity.returnMilesWalkedOnADate(8, "2019/06/21")).to.equal(.17);
+    expect(activity.returnMilesWalkedOnADate(5, "2019/06/20")).to.equal(8.7);
+    expect(activity.returnMilesWalkedOnADate(8, "2019/06/20")).to.equal(.16);
   });
   it('should return miles walked for on a specific day for a user', () => {
     expect(activity.returnMilesWalkedOnADate(1.1, "2019/06/19")).to.equal(null)
@@ -193,10 +188,10 @@ describe('Activity', () => {
     expect(activity.returnMilesWalkedOnADate()).to.equal(null)
   });
   it('should return Mins active on a specific day for a user', () => {
-    expect(activity.returnMinsActiveOnADate(5,"2019/06/21")).to.equal(107);
-    expect(activity.returnMinsActiveOnADate(8,"2019/06/21")).to.equal(23);
-    expect(activity.returnMinsActiveOnADate(5,"2019/06/20")).to.equal(287);
-    expect(activity.returnMinsActiveOnADate(8,"2019/06/20")).to.equal(90);
+    expect(activity.returnMinsActiveOnADate(5, "2019/06/21")).to.equal(107);
+    expect(activity.returnMinsActiveOnADate(8, "2019/06/21")).to.equal(23);
+    expect(activity.returnMinsActiveOnADate(5, "2019/06/20")).to.equal(287);
+    expect(activity.returnMinsActiveOnADate(8, "2019/06/20")).to.equal(90);
   });
   it('should return null if passed incorrect arguments', () => {
     expect(activity.returnMinsActiveOnADate(1.1, "2019/06/19")).to.equal(null)
@@ -207,8 +202,8 @@ describe('Activity', () => {
     expect(activity.returnMinsActiveOnADate()).to.equal(null)
   });
   it('should return average Mins active for 7 days for a user', () => {
-    expect(activity.returnAvgMinsActiveForAWeek(5,"2019/06/22")).to.equal(155.57);
-    expect(activity.returnAvgMinsActiveForAWeek(8,"2019/06/22")).to.equal(36.29);
+    expect(activity.returnAvgMinsActiveForAWeek(5, "2019/06/22")).to.equal(155.57);
+    expect(activity.returnAvgMinsActiveForAWeek(8, "2019/06/22")).to.equal(36.29);
   });
   it('should return null if passed incorrect arguments', () => {
     expect(activity.returnAvgMinsActiveForAWeek(1.1, "2019/06/19")).to.equal(null)
@@ -219,8 +214,8 @@ describe('Activity', () => {
     expect(activity.returnAvgMinsActiveForAWeek()).to.equal(null)
   });
   it('should return if a user met their step goal', () => {
-    expect(activity.returnIfUserMetStepGoal(5,"2019/06/22")).to.equal(true);
-    expect(activity.returnIfUserMetStepGoal(8,"2019/06/22")).to.equal(false);
+    expect(activity.returnIfUserMetStepGoal(5, "2019/06/22")).to.equal(true);
+    expect(activity.returnIfUserMetStepGoal(8, "2019/06/22")).to.equal(false);
   });
 
   it('should return null if passed incorrect arguments', () => {
@@ -262,21 +257,21 @@ describe('Activity', () => {
         numSteps: 7557,
         flightsOfStairs: 10,
         MinsActive: 188.5
-    })
+      })
     expect(activity.returnUsersAverageStairsStepsMins("2019/06/22")).to.eql(
       {
         date: "2019/06/22",
         numSteps: 5338.5,
         flightsOfStairs: 17,
         MinsActive: 67.5
-    })
+      })
     expect(activity.returnUsersAverageStairsStepsMins("2019/06/15")).to.eql(
       {
         date: "2019/06/15",
         numSteps: 1838.5,
         flightsOfStairs: 9,
         MinsActive: 77.5
-    })
+      })
   })
   it('should accept only valid date', () => {
     expect(activity.returnUsersAverageStairsStepsMins(1.1)).to.equal(null)
@@ -416,8 +411,11 @@ describe('Activity', () => {
     ];
     let increasingActivity = new Activity(increasingStepsData, userData)
 
-    expect(increasingActivity.returnIncreasingStepDays(5)).to.eql(["2019/06/18","2019/06/19"])
-    expect(increasingActivity.returnIncreasingStepDays(8)).to.eql(["2019/06/18","2019/06/22"])
+    expect(increasingActivity.returnIncreasingStepDays(5)).to.eql(["2019/06/18", "2019/06/19"])
+    expect(increasingActivity.returnIncreasingStepDays(8)).to.eql(["2019/06/18", "2019/06/22"])
 
   })
+  // it('should return days where numSteps was increasing for 3 days', () => {
+  //   expect(activity.returnIncreasingStepDays(8)).to.eql(["2019/06/22"])
+  // })
 })

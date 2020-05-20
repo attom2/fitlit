@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-undef */
 const userId = Math.floor(Math.random() * Math.floor(userData.length));
 const userCard = document.querySelector('.user-info');
 const userGreeting = document.querySelector('.user-greeting');
@@ -7,20 +9,44 @@ const todaysSleepDiv = document.querySelector('.todays-sleep');
 const weeklySleepDiv = document.querySelector('.weekly-sleep');
 const todaysActivityDiv = document.querySelector('.todays-activity');
 const weeklyActivityDiv = document.querySelector('.weekly-activity');
+const dateSearchbar = document.querySelector('.date-searchbar');
+const dateSearchBtn = document.querySelector('.date-search-btn');
+
+
 
 window.onload = function() {
-  makeUser();
+  makeUser(); 
 }
+
+
+
 function makeUser() {
+  
   const randomUser = new User(userData[userId]);
   const hydration = new Hydration(hydrationData);
   const sleep = new Sleep(sleepData);
   const activity = new Activity(activityData, userData)
+  let date = '2019/09/22';
   displayGreeting(randomUser);
   displayUserInfo(randomUser);
-  displayUserHydration(randomUser,'2019/09/22', hydration);
-  displayUserSleep(randomUser, '2019/09/22', sleep);
-  displayUserActivity(randomUser, '2019/09/22', activity)
+  displayUserActivities(randomUser, hydration, sleep, activity, date);
+  makeEventListener(randomUser, hydration, sleep, activity);
+}
+function makeEventListener(randomUser, hydration, sleep, activity) {
+  dateSearchBtn.addEventListener('click', function() {
+    weeklySleepDiv.innerText = '';
+    weeklyActivityDiv.innerText = '';
+    todaysActivityDiv.innerText = '';
+    displayUserHydration(randomUser, dateSearchbar.value, hydration);
+    displayUserSleep(randomUser, dateSearchbar.value, sleep);
+    displayUserActivity(randomUser, dateSearchbar.value, activity)
+
+  })
+}
+function displayUserActivities(randomUser, hydration, sleep, activity, date) {
+  displayUserHydration(randomUser, date, hydration);
+  displayUserSleep(randomUser, date, sleep);
+  displayUserActivity(randomUser, date, activity);
 }
 function displayGreeting(user) {
   userGreeting.innerText = `Hello ${user.returnFirstName()}`;
@@ -41,23 +67,23 @@ function displayUserHydration(userDetails, today, hydration) {
   let dailyWaterConsumption = hydration.singleDayTotal(userDetails.id, today);
   let averageWaterConsumption = hydration.dailyAverage(userDetails.id)
   let weeklyWaterConsumption = JSON.stringify(hydration.weeklyAmounts(userDetails.id, today));
-  todaysHydrationDiv.innerText =`${dailyWaterConsumption} ounces of water consumed today \n Average water consumption ${averageWaterConsumption} ounces a day`;
-  weeklyHydrationDiv.innerText =`${weeklyWaterConsumption.replace(/[{}"]/gi, ' ')}`;
+  todaysHydrationDiv.innerText = `${dailyWaterConsumption} ounces of water consumed today \n Average water consumption ${averageWaterConsumption} ounces a day`;
+  weeklyHydrationDiv.innerText = `${weeklyWaterConsumption.replace(/[{}"]/gi, ' ')}`;
 }
 function displayUserSleep(userDetails, today, sleep) {
-   let singleDaySleptHours = sleep.hoursSleptOnADate(userDetails.id, today);
-   let singleDaySleepQuality = sleep.sleepQualityOnADate(userDetails.id, today);
-   let singleDaySleepScore = sleep.sleepScoreOnADate(userDetails.id, today);
-   let weeklySleptHours = sleep.sleepHoursForAWeek(userDetails.id, today);
-   let weeklySleepQuality = sleep.sleepQualityForAWeek(userDetails.id, today);
-   let allTimeSleptHours = sleep.averageHoursSleptPerDay(userDetails.id);
-   let allTimeSleepQuality = sleep.averageSleepQualityPerDay(userDetails.id);
+  let singleDaySleptHours = sleep.hoursSleptOnADate(userDetails.id, today);
+  let singleDaySleepQuality = sleep.sleepQualityOnADate(userDetails.id, today);
+  let singleDaySleepScore = sleep.sleepScoreOnADate(userDetails.id, today);
+  let weeklySleptHours = sleep.sleepHoursForAWeek(userDetails.id, today);
+  let weeklySleepQuality = sleep.sleepQualityForAWeek(userDetails.id, today);
+  let allTimeSleptHours = sleep.averageHoursSleptPerDay(userDetails.id);
+  let allTimeSleepQuality = sleep.averageSleepQualityPerDay(userDetails.id);
 
-   todaysSleepDiv.innerText = `You slept ${singleDaySleptHours} hours today with a sleep quality of ${singleDaySleepQuality}! Your sleep score is ${singleDaySleepScore}.`
-   for(let i = 0; i < 7; i++){
-     weeklySleepDiv.innerText += `Day ${i + 1} : ${weeklySleptHours[i]} hours. ${weeklySleepQuality[i]} quality. \n`
-   }
-    weeklySleepDiv.innerText += `Average all time : ${allTimeSleptHours} hours slept with ${allTimeSleepQuality} sleep quality`;
+  todaysSleepDiv.innerText = `You slept ${singleDaySleptHours} hours today with a sleep quality of ${singleDaySleepQuality}! Your sleep score is ${singleDaySleepScore}.`
+  for (let i = 0; i < 7; i++) {
+    weeklySleepDiv.innerText += `Day ${i + 1} : ${weeklySleptHours[i]} hours. ${weeklySleepQuality[i]} quality. \n`
+  }
+  weeklySleepDiv.innerText += `Average all time : ${allTimeSleptHours} hours slept with ${allTimeSleepQuality} sleep quality`;
 }
 function displayUserActivity(userDetails, today, activity) {
   let singleDaySteps = activity.returnActivityData(userDetails.id, today).numSteps;
@@ -67,6 +93,8 @@ function displayUserActivity(userDetails, today, activity) {
   let usersAverageStairsStepsMins = activity.returnUsersAverageStairsStepsMins(today)
   todaysActivityDiv.innerText += `You walked ${singleDaySteps} steps, \n ${singleDayMilesWalked} miles, \n and were active for ${singleDayMinsActive} minutes today. 
   \n  which compares to the averages of ${usersAverageStairsStepsMins.numSteps} number of steps, ${usersAverageStairsStepsMins.flightsOfStairs} flights of stairs, and ${usersAverageStairsStepsMins.MinsActive}`
+
   weeklyActivityDiv.innerText += `You have climbed a total of ${totalFeetClimbed} feet since using this app`
 
 }
+
