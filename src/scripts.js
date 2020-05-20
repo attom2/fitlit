@@ -9,6 +9,7 @@ const todaysSleepDiv = document.querySelector('.todays-sleep');
 const weeklySleepDiv = document.querySelector('.weekly-sleep');
 const trendDiv = document.querySelector('.trend');
 const todaysActivityDiv = document.querySelector('.todays-activity');
+const averageActivityDiv = document.querySelector('.average-activity');
 const weeklyActivityDiv = document.querySelector('.weekly-activity');
 const dateSearchBtn = document.querySelector('.date-search-btn');
 let calendar = document.querySelector('.calendar');
@@ -22,7 +23,7 @@ window.onload = function() {
 
 
 function makeUser() {
-  
+
   const randomUser = new User(userData[userId]);
   const hydration = new Hydration(hydrationData);
   const sleep = new Sleep(sleepData);
@@ -32,6 +33,7 @@ function makeUser() {
   displayUserInfo(randomUser);
   displayUserActivities(randomUser, hydration, sleep, activity, date);
   makeEventListener(randomUser, hydration, sleep, activity);
+  addSvg();
 }
 function makeEventListener(randomUser, hydration, sleep, activity) {
   dateSearchBtn.addEventListener('click', function() {
@@ -43,6 +45,8 @@ function makeEventListener(randomUser, hydration, sleep, activity) {
     displayUserHydration(randomUser, correctedDate, hydration);
     displayUserSleep(randomUser, correctedDate, sleep);
     displayUserActivity(randomUser, correctedDate, activity);
+    addSvg()
+
   })
 }
 function displayUserActivities(randomUser, hydration, sleep, activity, date) {
@@ -54,7 +58,7 @@ function displayGreeting(user) {
   userGreeting.innerText = `Hello ${user.returnFirstName()}`;
 }
 function displayUserInfo(userDetails) {
-  userCard.innerText = `
+  userCard.innerText += `
   ID : ${userDetails.id}
   Name : ${userDetails.name}
   Address : ${userDetails.address}
@@ -69,11 +73,14 @@ function displayUserHydration(userDetails, today, hydration) {
   let dailyWaterConsumption = hydration.singleDayTotal(userDetails.id, today);
   let averageWaterConsumption = hydration.dailyAverage(userDetails.id)
   let weeklyWaterConsumption = Object.values(hydration.weeklyAmounts(userDetails.id, today));
- 
-  todaysHydrationDiv.innerText = `${dailyWaterConsumption} ounces of water consumed today \n Average water consumption ${averageWaterConsumption} ounces a day`;
+  todaysHydrationDiv.innerText = `Water consumed today: \n ${dailyWaterConsumption} ounces  
+    \n Average water consumption a day: 
+    ${averageWaterConsumption} ounces `;
+  weeklyHydrationDiv.innerText = `This week you have consumed:`  
   for (let i = 0; i < weeklyWaterConsumption.length; i++) {
-    weeklyHydrationDiv.innerText +=  weeklyWaterConsumption[i];
+    weeklyHydrationDiv.innerText +=  `Water consumption for day ${i}: ` +  weeklyWaterConsumption[i] + '\n';
   }
+    
 
 }
 function displayUserSleep(userDetails, today, sleep) {
@@ -86,6 +93,7 @@ function displayUserSleep(userDetails, today, sleep) {
   let allTimeSleepQuality = sleep.averageSleepQualityPerDay(userDetails.id);
 
   todaysSleepDiv.innerText = `You slept ${singleDaySleptHours} hours today with a sleep quality of ${singleDaySleepQuality}! Your sleep score is ${singleDaySleepScore}.`
+  weeklySleepDiv.innerText += `Your weekly Sleep stats: \n \n`
   for (let i = 0; i < 7; i++) {
     weeklySleepDiv.innerText += `Day ${i + 1} : ${weeklySleptHours[i]} hours. ${weeklySleepQuality[i]} quality. \n`
   }
@@ -96,15 +104,24 @@ function displayUserActivity(userDetails, today, activity) {
   let singleDayMinsActive = activity.returnMinsActiveOnADate(userDetails.id, today);
   let singleDayMilesWalked = activity.returnMilesWalkedOnADate(userDetails.id, today);
   let totalFeetClimbed = activity.returnTotalFeetClimbed(userDetails.id);
-  let usersAverageStairsStepsMins = activity.returnUsersAverageStairsStepsMins(today);
-  let setTrend = activity.returnIncreasingStepDays(userDetails.id);
-  todaysActivityDiv.innerText += `You walked ${singleDaySteps} steps, \n ${singleDayMilesWalked} miles, \n and were active for ${singleDayMinsActive} minutes today. 
-  \n  which compares to the averages of ${usersAverageStairsStepsMins.numSteps} number of steps, ${usersAverageStairsStepsMins.flightsOfStairs} flights of stairs, and ${usersAverageStairsStepsMins.MinsActive}`
+  let usersAverageStairsStepsMins = activity.returnUsersAverageStairsStepsMins(today)
+  todaysActivityDiv.innerText += `You walked: 
+  \n ${singleDaySteps} steps, \n ${singleDayMilesWalked} miles \n ${singleDayMinsActive} minutes active today.`
+  averageActivityDiv.innerText += `Averages between all users:
+
+  ${usersAverageStairsStepsMins.numSteps} steps \n ${usersAverageStairsStepsMins.flightsOfStairs} flights of stairs \n ${usersAverageStairsStepsMins.MinsActive} minutes active`
 
   weeklyActivityDiv.innerText += `You have climbed a total of ${totalFeetClimbed} feet since using this app`
   trendDiv.innerText = 'You increased number of steps 3 days in a row on: \n'
   for (let i = 0; i < setTrend.length; i++) {
     trendDiv.innerText += setTrend[i] + '\n';
   }
+}
+function addSvg() {
+  todaysHydrationDiv.innerHTML += `<img src="../src/assets/drop.svg" class="hydration-svg" alt="blue water droplet with an outline">`
+  weeklyActivityDiv.innerHTML += `<img src="../src/assets/mountian.svg" class="mountian-svg" alt="black mountian with snowcapped peaks">`
+  todaysSleepDiv.innerHTML += `<img src="../src/assets/bed.svg" class="bed-svg" alt="bed with blue sheets">`
+  todaysActivityDiv.innerHTML += `<img src="../src/assets/foot.svg" class="foot-svg" alt="foot inside of a circle">`
+  averageActivityDiv.innerHTML += `<img src="../src/assets/foot.svg" class="foot-svg" alt="foot inside of a circle">`
 }
 

@@ -9,18 +9,23 @@
     <div class="top-title">
       <h1 class="top-line">Activity Tracker</h1>
       <div class="user-greeting"></div>
-      <button class= "date-search-btn"> Get Info for Date</button>
-      <input type="date" class="calendar" min="2019-06-21" max="2019-09-21">
+      <div class="search-section">
+        <input type="date" class="calendar" min="2019-06-21" max="2019-09-21"id="date-picker">
+        <button class="date-search-btn" id="date-button"> Get Info for Date</button>
+      </div>
     </div>
-    <div class="card-section">
-      <div class="user-info card"></div>
-      <div class="todays-hydration card"></div>
-      <div class="weekly-hydration card"></div>
-      <div class="todays-sleep card"></div>
-      <div class="weekly-sleep card"></div>
-      <div class="todays-activity card"></div>
-      <div class="weekly-activity card"></div>
-      <div class="trend card"></div>
+    <div class="grid-holder">
+      <div class="card-section">
+        <div class="user-info card">Info:</div>
+        <div class="todays-hydration card"></div>
+        <div class="weekly-hydration card"></div>
+        <div class="todays-sleep card"></div>
+        <div class="weekly-sleep card"></div>
+        <div class="todays-activity card"></div>
+        <div class="average-activity card"></div>
+        <div class="weekly-activity card"></div>
+        <div class="trend card"></div>
+      </div>
     </div>
 
     <script type="text/javascript" src="../data/users.js"></script>

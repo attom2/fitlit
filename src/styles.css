@@ -5,6 +5,7 @@
 body {
   background-color: var(--main-bg-color);
   font-family: sans-serif;
+
 }
 .top-title {
  display: grid;
@@ -12,19 +13,51 @@ body {
  grid-template-rows: repeat(2, minmax(50px, 1fr));
  color: rgb(216, 214, 214);
  text-shadow: 2px 2px 3px black;
+ margin-bottom: 10px;
 }
 .top-line {
   grid-column-start: 2;
-  margin-left: 55px;
+  display: flex;
+  justify-content: center;
 }
 .user-greeting {
   grid-column-start: 2;
-  margin-left: 130px
+  display: flex;
+  justify-content: center;
 }
+.search-section {
+  display: flex;
+  justify-content: center;
+  grid-column-start: 2; 
+  grid-row-start: 3; 
+}
+#date-picker {
+  display: flex;
+  width: 138px;
+  border-radius: 6px;
+  border: none;
+  margin-right: 7px;
+  box-shadow: 3px 3px 9px #2d2d2d;
+  text-align: center;
+  font-size: medium;
+}
+#date-button {
+  display: flex;
+  width: 104px;
+  border-radius: 6px;
+  box-shadow: 3px 3px 9px #2d2d2d;
+  font-weight: 400;
 
+}
+.grid-holder {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 .card-section {
+  grid-column-start: 2;
   display: grid;
-  grid-template-columns: repeat(5, minmax(250px, 1fr));
+  grid-template-columns: repeat(5, minmax(250px, 0fr));
   grid-template-rows: repeat(3, minmax(150px, 1fr));
   grid-gap: 10px;
 
@@ -38,4 +71,33 @@ body {
   box-shadow: 6px 11px 5px #2d2d2d;
   /* border: 1px solid black; */
   border-radius: 10px;
+}
+.todays-hydration {
+  box-shadow: -2px 2px 0px 1px #087deb,6px 11px 5px #2d2d2d
+}
+.weekly-hydration {
+  box-shadow: -2px 2px 0px 1px #087deb, 6px 11px 5px #2d2d2d;
+}
+.todays-sleep {
+  box-shadow: -2px 2px 0px 1px #eb081b, 6px 11px 5px #2d2d2d;
+}
+.weekly-sleep {
+  box-shadow: -2px 2px 0px 1px #eb081b, 6px 11px 5px #2d2d2d;
+}
+.hydration-svg {
+  max-height: 100px;
+}
+.mountian-svg {
+  margin-left: 60px;
+  padding-top: 45px;
+}
+.bed-svg {
+  display: flex;
+  margin-left: 60px;
+  padding-top: 45px;
+}
+.foot-svg {
+  padding-left: 65px;
+  padding-top: 10px;
+  filter: contrast(.5);  
 }
