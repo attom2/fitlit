@@ -1,11 +1,7 @@
 /* eslint-disable max-len */
 class Sleep {
   constructor(data) {
-    if (typeof data === 'object') {
-      this.data = data;
-    } else {
-      this.data = null;
-    }
+    this.data = typeof data === 'object' ? data : null;
   }
   averageHoursSleptPerDay(id) {
     let filteredData = this.data.filter(day => day.userID === id)
@@ -83,14 +79,13 @@ class Sleep {
         continue;
       }
       let sumOfSleepQuality = weekSleepQualities.reduce((acc, currentValue) => {
-        return acc + currentValue
+        return acc + currentValue;
       }, 0)
       if ((sumOfSleepQuality / 7) > 3) {
         results.push(uniqUsers[i]);
       }
     }
     return results;
-    //uniqUsers.forEach((user, i) => this.data.sleepQualityForAWeek(uniqUsers[i], date))
   }
   sleepScoreOnADate(id, date) {
     let filteredData = this.data.filter(day => day.userID === id);
@@ -100,12 +95,11 @@ class Sleep {
   }
   findUserSleptTheMostOnADay(date) {
     let filteredData = this.data.filter(day => day.date === date);
-    let sortedData = filteredData.sort((a, b) => a.hoursSlept - b.hoursSlept)
+    let sortedData = filteredData.sort((a, b) => a.hoursSlept - b.hoursSlept);
     if (!sortedData.length) {
       return null;
     }
     let mostSleptUsers = sortedData.filter((entry) => entry.hoursSlept === sortedData[sortedData.length - 1].hoursSlept).map(entry => entry.userID);
-
     return mostSleptUsers;
   }
 }
