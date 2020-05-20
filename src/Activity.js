@@ -48,7 +48,6 @@ class Activity {
   }
   findAllDaysAboveStepGoal(id) {
     let stepResult = [];
-    // let stepGoal = this.userData.find(user => user.id === id).dailyStepGoal;
     let userInfo = this.data.filter(user => user.userID === id);
     userInfo.forEach(day => {
       let isMet = this.returnIfUserMetStepGoal(day.userID, day.date);
@@ -60,7 +59,8 @@ class Activity {
   }
   returnStairClimbingTotal(id) {
     let userInfo = this.data.filter(user => user.userID === id);
-    let totalStairsClimbed = userInfo.reduce((acc, day) =>  
+    console.log(userInfo);
+    let totalStairsClimbed = userInfo.reduce((acc, day) =>
     acc + day.flightsOfStairs, 0)
     return totalStairsClimbed > 0 ? totalStairsClimbed : null;
   }
@@ -92,6 +92,19 @@ class Activity {
     let totalFlights = userInfo.reduce((acc, currentValue) => acc + currentValue.flightsOfStairs, 0);
     return totalFlights * 12 || null;
   }
+  returnIncreasingStepDays(id) {
+    let userInfo = this.data.filter(user => user.userID === id);
+    let datesIncreasing = [];
+    for (let i = 3; i < userInfo.length; i++){
+      if(userInfo[i].numSteps > userInfo[i-1].numSteps &&
+        userInfo[i - 1].numSteps > userInfo[i-2].numSteps &&
+        userInfo[i - 2].numSteps > userInfo[i-3].numSteps) {
+          datesIncreasing.push(userInfo[i].date)
+        };
+    }
+    return datesIncreasing;
+  }
+
 }
 
 if(typeof module !== 'undefined') {
