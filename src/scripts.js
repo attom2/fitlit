@@ -43,7 +43,6 @@ function makeEventListener(randomUser, hydration, sleep, activity) {
     displayUserHydration(randomUser, correctedDate, hydration);
     displayUserSleep(randomUser, correctedDate, sleep);
     displayUserActivity(randomUser, correctedDate, activity);
-
   })
 }
 function displayUserActivities(randomUser, hydration, sleep, activity, date) {
@@ -69,9 +68,13 @@ function displayUserInfo(userDetails) {
 function displayUserHydration(userDetails, today, hydration) {
   let dailyWaterConsumption = hydration.singleDayTotal(userDetails.id, today);
   let averageWaterConsumption = hydration.dailyAverage(userDetails.id)
-  let weeklyWaterConsumption = JSON.stringify(hydration.weeklyAmounts(userDetails.id, today));
+  let weeklyWaterConsumption = Object.values(hydration.weeklyAmounts(userDetails.id, today));
+ 
   todaysHydrationDiv.innerText = `${dailyWaterConsumption} ounces of water consumed today \n Average water consumption ${averageWaterConsumption} ounces a day`;
-  weeklyHydrationDiv.innerText = `${weeklyWaterConsumption.replace(/[{}"]/gi, ' ')}`;
+  for (let i = 0; i < weeklyWaterConsumption.length; i++) {
+    weeklyHydrationDiv.innerText +=  weeklyWaterConsumption[i];
+  }
+
 }
 function displayUserSleep(userDetails, today, sleep) {
   let singleDaySleptHours = sleep.hoursSleptOnADate(userDetails.id, today);
@@ -99,6 +102,9 @@ function displayUserActivity(userDetails, today, activity) {
   \n  which compares to the averages of ${usersAverageStairsStepsMins.numSteps} number of steps, ${usersAverageStairsStepsMins.flightsOfStairs} flights of stairs, and ${usersAverageStairsStepsMins.MinsActive}`
 
   weeklyActivityDiv.innerText += `You have climbed a total of ${totalFeetClimbed} feet since using this app`
-  trendDiv.innerText += setTrend;
+  trendDiv.innerText = 'You increased number of steps 3 days in a row on: \n'
+  for (let i = 0; i < setTrend.length; i++) {
+    trendDiv.innerText += setTrend[i] + '\n';
+  }
 }
 
