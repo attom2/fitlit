@@ -1,8 +1,9 @@
+/* eslint-disable max-len */
 
 class Activity {
   constructor(data, userData) {
-    typeof data === 'object'? this.data = data : this.data = null;
-    typeof userData === 'object'? this.userData = userData : this.userData = null;
+    typeof data === 'object' ? this.data = data : this.data = null;
+    typeof userData === 'object' ? this.userData = userData : this.userData = null;
   }
   returnActivityData(id, date) {
     return this.data.find(user => user.userID === id && user.date === date)
@@ -10,12 +11,12 @@ class Activity {
 
   returnMilesWalkedOnADate(id, date) {
     let userInfo = this.returnActivityData(id, date);
-    if(!userInfo){
+    if (!userInfo) {
       return null;
     }
     let strideLength = this.userData.find(user => user.id === id).strideLength
-    let milesWalked = (userInfo.numSteps * strideLength)/5280;
-    return Math.round(milesWalked * 100)/100;
+    let milesWalked = (userInfo.numSteps * strideLength) / 5280;
+    return Math.round(milesWalked * 100) / 100;
   }
   returnMinsActiveOnADate(id, date) {
     let userInfo = this.returnActivityData(id, date);
@@ -27,8 +28,8 @@ class Activity {
     let dates = userInfo.map(user => user.date);
     let index = dates.indexOf(date) + 1;
     let weekMinsActive = [];
-    if(index){
-      for(let i = 7; i > 0; i--){
+    if (index) {
+      for (let i = 7; i > 0; i--) {
         weekMinsActive.push(userInfo[index - i].minutesActive);
       }
       let weekMinsActiveTotal = weekMinsActive.reduce((acc, currentValue) => {
@@ -40,7 +41,7 @@ class Activity {
   }
   returnIfUserMetStepGoal(id, date) {
     let userInfo = this.returnActivityData(id, date);
-    if(!userInfo){
+    if (!userInfo) {
       return null;
     }
     let stepGoal = this.userData.find(user => user.id === id).dailyStepGoal
@@ -51,21 +52,21 @@ class Activity {
     let userInfo = this.data.filter(user => user.userID === id);
     userInfo.forEach(day => {
       let isMet = this.returnIfUserMetStepGoal(day.userID, day.date);
-      if(isMet) {
+      if (isMet) {
         stepResult.push(day.date);
       }
     })
-    return (stepResult[0]) ? stepResult : null ;
+    return (stepResult[0]) ? stepResult : null;
   }
   returnStairClimbingTotal(id) {
     let userInfo = this.data.filter(user => user.userID === id);
     let totalStairsClimbed = userInfo.reduce((acc, day) =>
-    acc + day.flightsOfStairs, 0)
+      acc + day.flightsOfStairs, 0)
     return totalStairsClimbed > 0 ? totalStairsClimbed : null;
   }
   returnUsersAverageStairsStepsMins(date) {
     let dateInfo = this.data.filter(day => day.date === date);
-    if(!dateInfo.length){
+    if (!dateInfo.length) {
       return null;
     }
     let numStepsTemp =  0;
@@ -81,9 +82,9 @@ class Activity {
       return acc
     }, {})
     totals.date = date
-    totals.numSteps = Math.round((totals.numSteps/ this.userData.length) * 100) / 100;
-    totals.flightsOfStairs = Math.round((totals.flightsOfStairs/ this.userData.length)  * 100) / 100;
-    totals.MinsActive = Math.round((totals.MinsActive/ this.userData.length)  * 100) / 100;
+    totals.numSteps = Math.round((totals.numSteps / this.userData.length) * 100) / 100;
+    totals.flightsOfStairs = Math.round((totals.flightsOfStairs / this.userData.length)  * 100) / 100;
+    totals.MinsActive = Math.round((totals.MinsActive / this.userData.length)  * 100) / 100;
     return totals;
   }
   returnTotalFeetClimbed(id) {
@@ -94,18 +95,18 @@ class Activity {
   returnIncreasingStepDays(id) {
     let userInfo = this.data.filter(user => user.userID === id);
     let datesIncreasing = [];
-    for (let i = 3; i < userInfo.length; i++){
-      if(userInfo[i].numSteps > userInfo[i-1].numSteps &&
-        userInfo[i - 1].numSteps > userInfo[i-2].numSteps &&
-        userInfo[i - 2].numSteps > userInfo[i-3].numSteps) {
-          datesIncreasing.push(userInfo[i].date)
-        };
+    for (let i = 3; i < userInfo.length; i++) {
+      if (userInfo[i].numSteps > userInfo[i - 1].numSteps &&
+        userInfo[i - 1].numSteps > userInfo[i - 2].numSteps &&
+        userInfo[i - 2].numSteps > userInfo[i - 3].numSteps) {
+        datesIncreasing.push(userInfo[i].date)
+      }
     }
     return datesIncreasing;
   }
-
+ 
 }
 
-if(typeof module !== 'undefined') {
+if (typeof module !== 'undefined') {
   module.exports = Activity;
 }
