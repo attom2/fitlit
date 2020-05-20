@@ -297,7 +297,7 @@ describe('Activity', () => {
     expect(activity.returnTotalFeetClimbed("2019/06/20")).to.equal(null)
     expect(activity.returnTotalFeetClimbed()).to.equal(null)
   })
-  it('should return days where activity was increasing for 3 days', () => {
+  it('should return days where numSteps was increasing for 3 days', () => {
     expect(activity.returnIncreasingStepDays(8)).to.eql(["2019/06/22"])
   })
 
