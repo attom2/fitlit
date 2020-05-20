@@ -7,6 +7,7 @@ const todaysHydrationDiv = document.querySelector('.todays-hydration');
 const weeklyHydrationDiv = document.querySelector('.weekly-hydration');
 const todaysSleepDiv = document.querySelector('.todays-sleep');
 const weeklySleepDiv = document.querySelector('.weekly-sleep');
+const trendDiv = document.querySelector('.trend');
 const todaysActivityDiv = document.querySelector('.todays-activity');
 const weeklyActivityDiv = document.querySelector('.weekly-activity');
 const dateSearchBtn = document.querySelector('.date-search-btn');
@@ -37,6 +38,7 @@ function makeEventListener(randomUser, hydration, sleep, activity) {
     weeklySleepDiv.innerText = '';
     weeklyActivityDiv.innerText = '';
     todaysActivityDiv.innerText = '';
+    trendDiv.innerText = '';
     let correctedDate = calendar.value.replace(/-/g, '/');
     displayUserHydration(randomUser, correctedDate, hydration);
     displayUserSleep(randomUser, correctedDate, sleep);
@@ -91,11 +93,12 @@ function displayUserActivity(userDetails, today, activity) {
   let singleDayMinsActive = activity.returnMinsActiveOnADate(userDetails.id, today);
   let singleDayMilesWalked = activity.returnMilesWalkedOnADate(userDetails.id, today);
   let totalFeetClimbed = activity.returnTotalFeetClimbed(userDetails.id);
-  let usersAverageStairsStepsMins = activity.returnUsersAverageStairsStepsMins(today)
+  let usersAverageStairsStepsMins = activity.returnUsersAverageStairsStepsMins(today);
+  let setTrend = activity.returnIncreasingStepDays(userDetails.id);
   todaysActivityDiv.innerText += `You walked ${singleDaySteps} steps, \n ${singleDayMilesWalked} miles, \n and were active for ${singleDayMinsActive} minutes today. 
   \n  which compares to the averages of ${usersAverageStairsStepsMins.numSteps} number of steps, ${usersAverageStairsStepsMins.flightsOfStairs} flights of stairs, and ${usersAverageStairsStepsMins.MinsActive}`
 
   weeklyActivityDiv.innerText += `You have climbed a total of ${totalFeetClimbed} feet since using this app`
-
+  trendDiv.innerText += setTrend;
 }
 
