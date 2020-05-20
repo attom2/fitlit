@@ -59,7 +59,6 @@ class Activity {
   }
   returnStairClimbingTotal(id) {
     let userInfo = this.data.filter(user => user.userID === id);
-    console.log(userInfo);
     let totalStairsClimbed = userInfo.reduce((acc, day) =>
     acc + day.flightsOfStairs, 0)
     return totalStairsClimbed > 0 ? totalStairsClimbed : null;
