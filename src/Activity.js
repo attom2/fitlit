@@ -4,9 +4,12 @@ class Activity {
     typeof data === 'object'? this.data = data : this.data = null;
     typeof userData === 'object'? this.userData = userData : this.userData = null;
   }
+  returnActivityData(id, date) {
+    return this.data.find(user => user.userID === id && user.date === date)
+  }
 
   returnMilesWalkedOnADate(id, date) {
-    let userInfo = this.data.find(user => user.userID === id && user.date === date);
+    let userInfo = this.returnActivityData(id, date);
     if(!userInfo){
       return null;
     }
@@ -15,8 +18,9 @@ class Activity {
     return Math.round(milesWalked * 100)/100;
   }
   returnMinsActiveOnADate(id, date) {
-    let userInfo = this.data.find(user => user.userID === id && user.date === date);
-    return userInfo ? userInfo.MinsActive : null;
+    let userInfo = this.returnActivityData(id, date);
+
+    return userInfo ? userInfo.minutesActive : null;
   }
   returnAvgMinsActiveForAWeek(id, date) {
     let userInfo = this.data.filter(user => user.userID === id)
@@ -25,7 +29,7 @@ class Activity {
     let weekMinsActive = [];
     if(index){
       for(let i = 7; i > 0; i--){
-        weekMinsActive.push(userInfo[index - i].MinsActive);
+        weekMinsActive.push(userInfo[index - i].minutesActive);
       }
       let weekMinsActiveTotal = weekMinsActive.reduce((acc, currentValue) => {
         return acc + currentValue;
@@ -35,7 +39,7 @@ class Activity {
     return null;
   }
   returnIfUserMetStepGoal(id, date) {
-    let userInfo = this.data.find(user => user.userID === id && user.date === date);
+    let userInfo = this.returnActivityData(id, date);
     if(!userInfo){
       return null;
     }
@@ -71,7 +75,7 @@ class Activity {
     let totals = dateInfo.reduce((acc, currentValue) => {
       numStepsTemp += currentValue.numSteps
       stairsClimbedTemp += currentValue.flightsOfStairs
-      minsActiveTemp += currentValue.MinsActive
+      minsActiveTemp += currentValue.minutesActive
       acc.numSteps = numStepsTemp;
       acc.flightsOfStairs = stairsClimbedTemp;
       acc.MinsActive = minsActiveTemp;

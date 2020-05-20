@@ -1,10 +1,12 @@
 const userId = Math.floor(Math.random() * Math.floor(userData.length));
-const userCard = document.querySelector('.user-card');
+const userCard = document.querySelector('.user-info');
 const userGreeting = document.querySelector('.user-greeting');
-const todaysHydrationDiv = document.querySelector('.todays-hydration-card');
-const weeklyHydrationDiv = document.querySelector('.weekly-hydration-card');
-const todaysSleepDiv = document.querySelector('.todays-sleep-card');
-const weeklySleepDiv = document.querySelector('.weekly-sleep-card');
+const todaysHydrationDiv = document.querySelector('.todays-hydration');
+const weeklyHydrationDiv = document.querySelector('.weekly-hydration');
+const todaysSleepDiv = document.querySelector('.todays-sleep');
+const weeklySleepDiv = document.querySelector('.weekly-sleep');
+const todaysActivityDiv = document.querySelector('.todays-activity');
+const weeklyActivityDiv = document.querySelector('.weekly-activity');
 
 window.onload = function() {
   makeUser();
@@ -13,10 +15,12 @@ function makeUser() {
   const randomUser = new User(userData[userId]);
   const hydration = new Hydration(hydrationData);
   const sleep = new Sleep(sleepData);
+  const activity = new Activity(activityData, userData)
   displayGreeting(randomUser);
   displayUserInfo(randomUser);
   displayUserHydration(randomUser,'2019/09/22', hydration);
   displayUserSleep(randomUser, '2019/09/22', sleep);
+  displayUserActivity(randomUser, '2019/09/22', activity)
 }
 function displayGreeting(user) {
   userGreeting.innerText = `Hello ${user.returnFirstName()}`;
@@ -54,4 +58,15 @@ function displayUserSleep(userDetails, today, sleep) {
      weeklySleepDiv.innerText += `Day ${i + 1} : ${weeklySleptHours[i]} hours. ${weeklySleepQuality[i]} quality. \n`
    }
     weeklySleepDiv.innerText += `Average all time : ${allTimeSleptHours} hours slept with ${allTimeSleepQuality} sleep quality`;
+}
+function displayUserActivity(userDetails, today, activity) {
+  let singleDaySteps = activity.returnActivityData(userDetails.id, today).numSteps;
+  let singleDayMinsActive = activity.returnMinsActiveOnADate(userDetails.id, today);
+  let singleDayMilesWalked = activity.returnMilesWalkedOnADate(userDetails.id, today);
+  let totalFeetClimbed = activity.returnTotalFeetClimbed(userDetails.id);
+  let usersAverageStairsStepsMins = activity.returnUsersAverageStairsStepsMins(today)
+  todaysActivityDiv.innerText += `You walked ${singleDaySteps} steps, \n ${singleDayMilesWalked} miles, \n and were active for ${singleDayMinsActive} minutes today. 
+  \n  which compares to the averages of ${usersAverageStairsStepsMins.numSteps} number of steps, ${usersAverageStairsStepsMins.flightsOfStairs} flights of stairs, and ${usersAverageStairsStepsMins.MinsActive}`
+  weeklyActivityDiv.innerText += `You have climbed a total of ${totalFeetClimbed} feet since using this app`
+
 }
