@@ -13,111 +13,111 @@ describe('Activity', () => {
       "userID": 5,
       "date": "2019/06/15",
       "numSteps": 3577,
-      "MinsActive": 140,
+      "minutesActive": 140,
       "flightsOfStairs": 16
     },
     {
       "userID": 5,
       "date": "2019/06/16",
       "numSteps": 4294,
-      "MinsActive": 138,
+      "minutesActive": 138,
       "flightsOfStairs": 10
     },
     {
       "userID": 5,
       "date": "2019/06/17",
       "numSteps": 7402,
-      "MinsActive": 116,
+      "minutesActive": 116,
       "flightsOfStairs": 33
     },
     {
       "userID": 5,
       "date": "2019/06/18",
       "numSteps": 3486,
-      "MinsActive": 114,
+      "minutesActive": 114,
       "flightsOfStairs": 32
     },
     {
       "userID": 5,
       "date": "2019/06/19",
       "numSteps": 11374,
-      "MinsActive": 213,
+      "minutesActive": 213,
       "flightsOfStairs": 13
     },
     {
       "userID": 5,
       "date": "2019/06/20",
       "numSteps": 14810,
-      "MinsActive": 287,
+      "minutesActive": 287,
       "flightsOfStairs": 18
     },
     {
       "userID": 5,
       "date": "2019/06/21",
       "numSteps": 2634,
-      "MinsActive": 107,
+      "minutesActive": 107,
       "flightsOfStairs": 5
     },
     {
       "userID": 5,
       "date": "2019/06/22",
       "numSteps": 10333,
-      "MinsActive": 114,
+      "minutesActive": 114,
       "flightsOfStairs": 31
     }, {
       "userID": 8,
       "date": "2019/06/15",
       "numSteps": 100,
-      "MinsActive": 15,
+      "minutesActive": 15,
       "flightsOfStairs": 2
     },
     {
       "userID": 8,
       "date": "2019/06/16",
       "numSteps": 1202,
-      "MinsActive": 43,
+      "minutesActive": 43,
       "flightsOfStairs": 4
     },
     {
       "userID": 8,
       "date": "2019/06/17",
       "numSteps": 1234,
-      "MinsActive": 32,
+      "minutesActive": 32,
       "flightsOfStairs": 45
     },
     {
       "userID": 8,
       "date": "2019/06/18",
       "numSteps": 432,
-      "MinsActive": 33,
+      "minutesActive": 33,
       "flightsOfStairs": 12
     },
     {
       "userID": 8,
       "date": "2019/06/19",
       "numSteps": 234,
-      "MinsActive": 12,
+      "minutesActive": 12,
       "flightsOfStairs": 3
     },
     {
       "userID": 8,
       "date": "2019/06/20",
       "numSteps": 304,
-      "MinsActive": 90,
+      "minutesActive": 90,
       "flightsOfStairs": 2
     },
     {
       "userID": 8,
       "date": "2019/06/21",
       "numSteps": 321,
-      "MinsActive": 23,
+      "minutesActive": 23,
       "flightsOfStairs": 6
     },
     {
       "userID": 8,
       "date": "2019/06/22",
       "numSteps": 344,
-      "MinsActive": 21,
+      "minutesActive": 21,
       "flightsOfStairs": 3
     },
     ];
