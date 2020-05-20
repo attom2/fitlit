@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 class Hydration {
   constructor(data) {
     if (typeof data === "object") {
@@ -12,7 +13,7 @@ class Hydration {
     let totalOunces = days.reduce((acc, currentValue) => {
       return acc + currentValue.numOunces
     }, 0)
-    return days.length ? Math.floor(totalOunces/days.length) : null;
+    return days.length ? Math.floor(totalOunces / days.length) : null;
   }
   singleDayTotal(id, date) {
     let entries = this.data.filter(day => day.date === date && day.userID === id);
