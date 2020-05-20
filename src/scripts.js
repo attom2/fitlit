@@ -3,14 +3,15 @@
 const userId = Math.floor(Math.random() * Math.floor(userData.length));
 const userCard = document.querySelector('.user-info');
 const userGreeting = document.querySelector('.user-greeting');
-const todaysHydrationDiv = document.querySelector('.todays-hydration');
-const weeklyHydrationDiv = document.querySelector('.weekly-hydration');
-const todaysSleepDiv = document.querySelector('.todays-sleep');
-const weeklySleepDiv = document.querySelector('.weekly-sleep');
-const trendDiv = document.querySelector('.trend');
-const todaysActivityDiv = document.querySelector('.todays-activity');
-const averageActivityDiv = document.querySelector('.average-activity');
-const weeklyActivityDiv = document.querySelector('.weekly-activity');
+const todaysHydrationSection = document.querySelector('.todays-hydration');
+const weeklyHydrationSection = document.querySelector('.weekly-hydration');
+const todaysSleepSection = document.querySelector('.todays-sleep');
+const weeklySleepSection = document.querySelector('.weekly-sleep');
+const trendSection = document.querySelector('.trend');
+const friendsSection = document.querySelector('.friends');
+const todaysActivitySection = document.querySelector('.todays-activity');
+const averageActivitySection = document.querySelector('.average-activity');
+const weeklyActivitySection = document.querySelector('.weekly-activity');
 const dateSearchBtn = document.querySelector('.date-search-btn');
 let calendar = document.querySelector('.calendar');
 
@@ -37,10 +38,10 @@ function makeUser() {
 }
 function makeEventListener(randomUser, hydration, sleep, activity) {
   dateSearchBtn.addEventListener('click', function() {
-    weeklySleepDiv.innerText = '';
-    weeklyActivityDiv.innerText = '';
-    todaysActivityDiv.innerText = '';
-    trendDiv.innerText = '';
+    weeklySleepSection.innerText = '';
+    weeklyActivitySection.innerText = '';
+    todaysActivitySection.innerText = '';
+    trendSection.innerText = '';
     let correctedDate = calendar.value.replace(/-/g, '/');
     displayUserHydration(randomUser, correctedDate, hydration);
     displayUserSleep(randomUser, correctedDate, sleep);
@@ -59,26 +60,34 @@ function displayGreeting(user) {
 }
 function displayUserInfo(userDetails) {
   userCard.innerText += `
-  ID : ${userDetails.id}
-  Name : ${userDetails.name}
-  Address : ${userDetails.address}
-  Email : ${userDetails.email}
-  Stride Length : ${userDetails.strideLength}
-  Daily Step Goal :${userDetails.dailyStepGoal}
-  Friends :${userDetails.friends}
+
+  Name: ${userDetails.name}
+  Address: ${userDetails.address}
+  Email: ${userDetails.email}
+  Stride Length: ${userDetails.strideLength}
+  Daily Step Goal: ${userDetails.dailyStepGoal}
   `
+  displayFriends(userDetails.friends)
+}
+function displayFriends(friends) {
+
+  let userRepo = new UserRepository(userData);
+  let friendsNames = friends.map(friend => userRepo.filterUsersData(friend).name).join('\n')
+  console.log(friendsNames);
+  friendsSection.innerText += `Your friends: \n \n ${friendsNames}`;
+
 }
 
 function displayUserHydration(userDetails, today, hydration) {
   let dailyWaterConsumption = hydration.singleDayTotal(userDetails.id, today);
   let averageWaterConsumption = hydration.dailyAverage(userDetails.id)
   let weeklyWaterConsumption = Object.values(hydration.weeklyAmounts(userDetails.id, today));
-  todaysHydrationDiv.innerText = `Water consumed ${today}: \n ${dailyWaterConsumption} ounces  
+  todaysHydrationSection.innerText = `Water consumed ${today}: \n ${dailyWaterConsumption} ounces  
     \n Average water consumption a day: 
     ${averageWaterConsumption} ounces `;
-  weeklyHydrationDiv.innerText = `Water consumption for this week: \n \n`  
+  weeklyHydrationSection.innerText = `Water consumption for this week: \n \n`  
   for (let i = 0; i < weeklyWaterConsumption.length; i++) {
-    weeklyHydrationDiv.innerText +=  `Day ${i + 1}: ` +  weeklyWaterConsumption[i] + ' oz \n' ;
+    weeklyHydrationSection.innerText +=  `Day ${i + 1}: ` +  weeklyWaterConsumption[i] + ' oz \n' ;
   }
     
 
@@ -92,12 +101,12 @@ function displayUserSleep(userDetails, today, sleep) {
   let allTimeSleptHours = sleep.averageHoursSleptPerDay(userDetails.id);
   let allTimeSleepQuality = sleep.averageSleepQualityPerDay(userDetails.id);
 
-  todaysSleepDiv.innerText = `You slept ${singleDaySleptHours} hours today with a sleep quality of ${singleDaySleepQuality}! Your sleep score is ${singleDaySleepScore}.`
-  weeklySleepDiv.innerText += `Your weekly Sleep stats: \n \n`
+  todaysSleepSection.innerText = `You slept ${singleDaySleptHours} hours today with a sleep quality of ${singleDaySleepQuality}! Your sleep score is ${singleDaySleepScore}.`
+  weeklySleepSection.innerText += `Your weekly Sleep stats: \n \n`
   for (let i = 0; i < 7; i++) {
-    weeklySleepDiv.innerText += `Day ${i + 1} : ${weeklySleptHours[i]} hours. ${weeklySleepQuality[i]} quality. \n`
+    weeklySleepSection.innerText += `Day ${i + 1} : ${weeklySleptHours[i]} hours. ${weeklySleepQuality[i]} quality. \n`
   }
-  weeklySleepDiv.innerText += `Average all time : ${allTimeSleptHours} hours slept with ${allTimeSleepQuality} sleep quality`;
+  weeklySleepSection.innerText += `Average all time : ${allTimeSleptHours} hours slept with ${allTimeSleepQuality} sleep quality`;
 }
 function displayUserActivity(userDetails, today, activity) {
   let singleDaySteps = activity.returnActivityData(userDetails.id, today).numSteps;
@@ -106,23 +115,23 @@ function displayUserActivity(userDetails, today, activity) {
   let totalFeetClimbed = activity.returnTotalFeetClimbed(userDetails.id);
   let usersAverageStairsStepsMins = activity.returnUsersAverageStairsStepsMins(today)
   let setTrend = activity.returnIncreasingStepDays(userDetails.id);
-  todaysActivityDiv.innerText += `On ${today} you walked: 
+  todaysActivitySection.innerText += `On ${today} you walked: 
   \n ${singleDaySteps} steps, \n ${singleDayMilesWalked} miles \n ${singleDayMinsActive} minutes active today.`
-  averageActivityDiv.innerText = `Averages between all users:
+  averageActivitySection.innerText = `Averages between all users:
 
   ${usersAverageStairsStepsMins.numSteps} steps \n ${usersAverageStairsStepsMins.flightsOfStairs} flights of stairs \n ${usersAverageStairsStepsMins.MinsActive} minutes active`
 
-  weeklyActivityDiv.innerText += `You have climbed a total of ${totalFeetClimbed} feet since using this app`
-  trendDiv.innerText = 'Your steps trended upwards on: \n \n'
+  weeklyActivitySection.innerText += `You have climbed a total of ${totalFeetClimbed} feet since using this app`
+  trendSection.innerText = 'Your steps trended upwards on: \n \n'
   for (let i = 0; i < setTrend.length; i++) {
-    trendDiv.innerText += setTrend[i] + '\n';
+    trendSection.innerText += setTrend[i] + '\n';
   }
 }
 function addSvg() {
-  todaysHydrationDiv.innerHTML += `<img src="../src/assets/drop.svg" class="hydration-svg" alt="blue water droplet with an outline">`
-  weeklyActivityDiv.innerHTML += `<img src="../src/assets/mountian.svg" class="mountian-svg" alt="black mountian with snowcapped peaks">`
-  todaysSleepDiv.innerHTML += `<img src="../src/assets/bed.svg" class="bed-svg" alt="bed with blue sheets">`
-  todaysActivityDiv.innerHTML += `<img src="../src/assets/foot.svg" class="foot-svg" alt="foot inside of a circle">`
-  averageActivityDiv.innerHTML += `<img src="../src/assets/foot.svg" class="foot-svg" alt="foot inside of a circle">`
+  todaysHydrationSection.innerHTML += `<img src="../src/assets/drop.svg" class="hydration-svg" alt="blue water droplet with an outline">`
+  weeklyActivitySection.innerHTML += `<img src="../src/assets/mountian.svg" class="mountian-svg" alt="black mountian with snowcapped peaks">`
+  todaysSleepSection.innerHTML += `<img src="../src/assets/bed.svg" class="bed-svg" alt="bed with blue sheets">`
+  todaysActivitySection.innerHTML += `<img src="../src/assets/foot.svg" class="foot-svg" alt="foot inside of a circle">`
+  averageActivitySection.innerHTML += `<img src="../src/assets/foot.svg" class="foot-svg" alt="foot inside of a circle">`
 }
 
