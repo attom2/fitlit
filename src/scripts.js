@@ -73,12 +73,12 @@ function displayUserHydration(userDetails, today, hydration) {
   let dailyWaterConsumption = hydration.singleDayTotal(userDetails.id, today);
   let averageWaterConsumption = hydration.dailyAverage(userDetails.id)
   let weeklyWaterConsumption = Object.values(hydration.weeklyAmounts(userDetails.id, today));
-  todaysHydrationDiv.innerText = `Water consumed today: \n ${dailyWaterConsumption} ounces  
+  todaysHydrationDiv.innerText = `Water consumed ${today}: \n ${dailyWaterConsumption} ounces  
     \n Average water consumption a day: 
     ${averageWaterConsumption} ounces `;
-  weeklyHydrationDiv.innerText = `This week you have consumed:`  
+  weeklyHydrationDiv.innerText = `Water consumption for this week: \n \n`  
   for (let i = 0; i < weeklyWaterConsumption.length; i++) {
-    weeklyHydrationDiv.innerText +=  `Water consumption for day ${i}: ` +  weeklyWaterConsumption[i] + '\n';
+    weeklyHydrationDiv.innerText +=  `Day ${i + 1}: ` +  weeklyWaterConsumption[i] + ' oz \n' ;
   }
     
 
@@ -105,14 +105,15 @@ function displayUserActivity(userDetails, today, activity) {
   let singleDayMilesWalked = activity.returnMilesWalkedOnADate(userDetails.id, today);
   let totalFeetClimbed = activity.returnTotalFeetClimbed(userDetails.id);
   let usersAverageStairsStepsMins = activity.returnUsersAverageStairsStepsMins(today)
-  todaysActivityDiv.innerText += `You walked: 
+  let setTrend = activity.returnIncreasingStepDays(userDetails.id);
+  todaysActivityDiv.innerText += `On ${today} you walked: 
   \n ${singleDaySteps} steps, \n ${singleDayMilesWalked} miles \n ${singleDayMinsActive} minutes active today.`
-  averageActivityDiv.innerText += `Averages between all users:
+  averageActivityDiv.innerText = `Averages between all users:
 
   ${usersAverageStairsStepsMins.numSteps} steps \n ${usersAverageStairsStepsMins.flightsOfStairs} flights of stairs \n ${usersAverageStairsStepsMins.MinsActive} minutes active`
 
   weeklyActivityDiv.innerText += `You have climbed a total of ${totalFeetClimbed} feet since using this app`
-  trendDiv.innerText = 'You increased number of steps 3 days in a row on: \n'
+  trendDiv.innerText = 'Your steps trended upwards on: \n \n'
   for (let i = 0; i < setTrend.length; i++) {
     trendDiv.innerText += setTrend[i] + '\n';
   }
