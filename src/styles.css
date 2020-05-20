@@ -72,3 +72,32 @@ body {
   /* border: 1px solid black; */
   border-radius: 10px;
 }
+.todays-hydration {
+  box-shadow: -2px 2px 0px 1px #087deb,6px 11px 5px #2d2d2d
+}
+.weekly-hydration {
+  box-shadow: -2px 2px 0px 1px #087deb, 6px 11px 5px #2d2d2d;
+}
+.todays-sleep {
+  box-shadow: -2px 2px 0px 1px #eb081b, 6px 11px 5px #2d2d2d;
+}
+.weekly-sleep {
+  box-shadow: -2px 2px 0px 1px #eb081b, 6px 11px 5px #2d2d2d;
+}
+.hydration-svg {
+  max-height: 100px;
+}
+.mountian-svg {
+  margin-left: 60px;
+  padding-top: 45px;
+}
+.bed-svg {
+  display: flex;
+  margin-left: 60px;
+  padding-top: 45px;
+}
+.foot-svg {
+  padding-left: 65px;
+  padding-top: 10px;
+  filter: contrast(.5);  
+}
