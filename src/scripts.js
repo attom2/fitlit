@@ -9,8 +9,8 @@ const todaysSleepDiv = document.querySelector('.todays-sleep');
 const weeklySleepDiv = document.querySelector('.weekly-sleep');
 const todaysActivityDiv = document.querySelector('.todays-activity');
 const weeklyActivityDiv = document.querySelector('.weekly-activity');
-const dateSearchbar = document.querySelector('.date-searchbar');
 const dateSearchBtn = document.querySelector('.date-search-btn');
+let calendar = document.querySelector('.calendar');
 
 
 
@@ -37,9 +37,10 @@ function makeEventListener(randomUser, hydration, sleep, activity) {
     weeklySleepDiv.innerText = '';
     weeklyActivityDiv.innerText = '';
     todaysActivityDiv.innerText = '';
-    displayUserHydration(randomUser, dateSearchbar.value, hydration);
-    displayUserSleep(randomUser, dateSearchbar.value, sleep);
-    displayUserActivity(randomUser, dateSearchbar.value, activity)
+    let correctedDate = calendar.value.replace(/-/g, '/');
+    displayUserHydration(randomUser, correctedDate, hydration);
+    displayUserSleep(randomUser, correctedDate, sleep);
+    displayUserActivity(randomUser, correctedDate, activity);
 
   })
 }
