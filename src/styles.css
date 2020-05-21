@@ -54,11 +54,17 @@ body {
   justify-content: center;
   width: 100%;
 }
+.extra-box-shadow {
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: inset 8px 6px 16px #232323f7, inset -3px -4px 12px 2px #5f5f5f96;
+}
+
 .card-section {
   grid-column-start: 2;
   display: grid;
   grid-template-columns: repeat(5, minmax(250px, 0fr));
-  grid-template-rows: repeat(3, minmax(150px, 1fr));
+  grid-template-rows: repeat(2, minmax(150px, 1fr));
   grid-gap: 10px;
 
 }
