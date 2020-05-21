@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const chai = require('chai');
 const expect = chai.expect;
 const Sleep = require('../src/Sleep.js')
@@ -11,103 +12,103 @@ describe('Sleep', () => {
         "userID": 1,
         "date": "2019/06/15",
         "hoursSlept": 9.9,
-        "sleepQuality" : 10
+        "sleepQuality": 10
       },
       {
         "userID": 2,
         "date": "2019/06/15",
         "hoursSlept": 5.7,
-        "sleepQuality" : 2.1
+        "sleepQuality": 2.1
       },
       {
         "userID": 1,
         "date": "2019/06/16",
         "hoursSlept": 8,
-        "sleepQuality" : 7.1
+        "sleepQuality": 7.1
       },
       {
         "userID": 2,
         "date": "2019/06/16",
         "hoursSlept": 6.6,
-        "sleepQuality" : 3.6
+        "sleepQuality": 3.6
       },
       {
         "userID": 1,
         "date": "2019/06/17",
         "hoursSlept": 9.8,
-        "sleepQuality" : 20
+        "sleepQuality": 20
       },
       {
         "userID": 2,
         "date": "2019/06/17",
         "hoursSlept": 3.3,
-        "sleepQuality" : 1
+        "sleepQuality": 1
       },
       {
         "userID": 1,
         "date": "2019/06/18",
         "hoursSlept": 7.7,
-        "sleepQuality" : 2.5
+        "sleepQuality": 2.5
       },
       {
         "userID": 2,
         "date": "2019/06/18",
         "hoursSlept": 5.8,
-        "sleepQuality" : 3.2
+        "sleepQuality": 3.2
       },
       {
         "userID": 1,
         "date": "2019/06/19",
         "hoursSlept": 6.5,
-        "sleepQuality" : 3.1
+        "sleepQuality": 3.1
       },
       {
         "userID": 2,
         "date": "2019/06/19",
         "hoursSlept": 1.2,
-        "sleepQuality" : 0.3
+        "sleepQuality": 0.3
       },
       {
         "userID": 1,
         "date": "2019/06/20",
         "hoursSlept": 7.7,
-        "sleepQuality" : 4.5
+        "sleepQuality": 4.5
       },
       {
         "userID": 2,
         "date": "2019/06/20",
         "hoursSlept": 5.3,
-        "sleepQuality" : 5
+        "sleepQuality": 5
       },
       {
         "userID": 1,
         "date": "2019/06/21",
         "hoursSlept": 8,
-        "sleepQuality" : 4.3
+        "sleepQuality": 4.3
       },
       {
         "userID": 2,
         "date": "2019/06/21",
         "hoursSlept": 5.4,
-        "sleepQuality" : 3.9
+        "sleepQuality": 3.9
       },
       {
         "userID": 1,
         "date": "2019/06/22",
         "hoursSlept": 6.3,
-        "sleepQuality" : 4.3
+        "sleepQuality": 4.3
       },
       {
         "userID": 2,
         "date": "2019/06/22",
         "hoursSlept": 8.1,
-        "sleepQuality" : 5.3
+        "sleepQuality": 5.3
       },
       {
         "userID": 3,
         "date": "2019/06/15",
         "hoursSlept": 7.4,
-        "sleepQuality" : 5
+        "sleepQuality": 5
       }
     ]
     sleep = new Sleep(sleepData);
@@ -198,7 +199,7 @@ describe('Sleep', () => {
     expect(sadSleep.sleepQualityForAWeek()).to.equal(null)
   })
   it('should return hours slept each day for a given week', () => {
-    expect(sleep.sleepHoursForAWeek(2, "2019/06/21")).to.deep.equal([5.7, 6.6, 3.3, 5.8, 1.2, 5.3,5.4])
+    expect(sleep.sleepHoursForAWeek(2, "2019/06/21")).to.deep.equal([5.7, 6.6, 3.3, 5.8, 1.2, 5.3, 5.4])
   })
   it('should only accept valid user id and date', () => {
     expect(sleep.sleepHoursForAWeek(1.1, "2019/06/19")).to.equal(null)
@@ -220,38 +221,38 @@ describe('Sleep', () => {
     expect(sadSleep.sleepQualityForAllUsers()).to.equal(null)
   })
   it('Find all users whose weekly sleep quality is greater than 3', () => {
-    expect(sleep.qualityGreaterThanThree("2019/06/22")).to.eql([1,2])
+    expect(sleep.qualityGreaterThanThree("2019/06/22")).to.eql([1, 2])
   })
   it('only allows for users who have all 7 days of sleep data', () => {
     let extraData = [{
       "userID": 23,
       "date": "2019/06/16",
       "hoursSlept": 8,
-      "sleepQuality" : 4.5
-    },{
+      "sleepQuality": 4.5
+    }, {
       "userID": 23,
       "date": "2019/06/17",
       "hoursSlept": 8,
-      "sleepQuality" : 4.5
-    },{
+      "sleepQuality": 4.5
+    }, {
       "userID": 23,
       "date": "2019/06/18",
       "hoursSlept": 8,
-      "sleepQuality" : 4.5
-    },{
+      "sleepQuality": 4.5
+    }, {
       "userID": 23,
       "date": "2019/06/19",
       "hoursSlept": 8,
-      "sleepQuality" : 4.5
-    },{
+      "sleepQuality": 4.5
+    }, {
       "userID": 23,
       "date": "2019/06/20",
       "hoursSlept": 8,
-      "sleepQuality" : 4.5
+      "sleepQuality": 4.5
     }]
     let sadSleepData = sleepData.concat(extraData);
     const sadSleep = new Sleep(sadSleepData);
-    expect(sadSleep.qualityGreaterThanThree("2019/06/22")).to.eql([1,2])
+    expect(sadSleep.qualityGreaterThanThree("2019/06/22")).to.eql([1, 2])
   })
   it('should return sleep score on a given day', () => {
     expect(sleep.sleepScoreOnADate(1, "2019/06/15")).to.equal(99)
@@ -287,32 +288,32 @@ describe('Sleep', () => {
       "userID": 23,
       "date": "2019/06/16",
       "hoursSlept": 8,
-      "sleepQuality" : 4.5
-    },{
+      "sleepQuality": 4.5
+    }, {
       "userID": 9,
       "date": "2019/06/16",
       "hoursSlept": 8,
-      "sleepQuality" : 4.5
-    },{
+      "sleepQuality": 4.5
+    }, {
       "userID": 23,
       "date": "2019/06/17",
       "hoursSlept": 8,
-      "sleepQuality" : 4.5
-    },{
+      "sleepQuality": 4.5
+    }, {
       "userID": 23,
       "date": "2019/06/18",
       "hoursSlept": 8,
-      "sleepQuality" : 4.5
-    },{
+      "sleepQuality": 4.5
+    }, {
       "userID": 23,
       "date": "2019/06/19",
       "hoursSlept": 8,
-      "sleepQuality" : 4.5
-    },{
+      "sleepQuality": 4.5
+    }, {
       "userID": 23,
       "date": "2019/06/20",
       "hoursSlept": 7.7,
-      "sleepQuality" : 4.5
+      "sleepQuality": 4.5
     }]
     let extraSleepData = sleepData.concat(extraData);
     const extraSleep = new Sleep(extraSleepData);

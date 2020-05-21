@@ -1,6 +1,5 @@
 const chai = require('chai');
 const expect = chai.expect;
-const activityData = require('../data/activity.js');
 const User = require('../src/User');
 let userData;
 let user1;
@@ -49,7 +48,7 @@ describe('User', () => {
           33
         ]
       }]
-      user1 = new User(userData[0]);
+    user1 = new User(userData[0]);
   })
   it('should be a function', () => {
     expect(User).to.be.a('function');

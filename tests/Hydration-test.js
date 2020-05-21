@@ -140,7 +140,7 @@ describe('Hydration', () => {
     */
   })
   it('return null if user id/date is not in the data set', () => {
-    expect(hydration.singleDayTotal(5,'2019/06/15')).to.equal(null)
+    expect(hydration.singleDayTotal(5, '2019/06/15')).to.equal(null)
     expect(hydration.singleDayTotal('2019/06/15', 3)).to.equal(null)
     expect(hydration.singleDayTotal()).to.equal(null)
     expect(hydration.singleDayTotal('3')).to.equal(null)
@@ -162,7 +162,7 @@ describe('Hydration', () => {
     expect(hydration.weeklyAmounts(1, "2019/06/22")).to.eql(user1Week)
   })
   it('return null if user id/date is not in the data set', () => {
-    expect(hydration.weeklyAmounts(5,'2019/06/15')).to.equal(null)
+    expect(hydration.weeklyAmounts(5, '2019/06/15')).to.equal(null)
     expect(hydration.weeklyAmounts('2019/06/15', 3)).to.equal(null)
     expect(hydration.weeklyAmounts()).to.equal(null)
     expect(hydration.weeklyAmounts('3')).to.equal(null)

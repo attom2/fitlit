@@ -87,7 +87,7 @@ function displayUserHydration(userDetails, today, hydration) {
     ${averageWaterConsumption} ounces `;
   weeklyHydrationSection.innerText = `Water consumption for this week: \n \n`  
   for (let i = 0; i < weeklyWaterConsumption.length; i++) {
-    weeklyHydrationSection.innerText +=  `Day ${i + 1}: ` +  weeklyWaterConsumption[i] + ' oz \n' ;
+    weeklyHydrationSection.innerText +=  `Day ${i + 1}: ` +  weeklyWaterConsumption[i] + ' oz \n';
   }
     
 

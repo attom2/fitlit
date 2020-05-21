@@ -1,8 +1,7 @@
+/* eslint-disable max-len */
 
 const chai = require('chai');
 const expect = chai.expect;
-// const data = require('../data/activity')
-// const activityData = data.activityData;
 const UserRepository = require('../src/UserRepository');
 let userRepository;
 let userData;
@@ -72,19 +71,19 @@ describe('UserRepo', () => {
   })
   it('given a user’s ID, should return users data', () => {
     expect(userRepository.filterUsersData(2)).to.eql({
-        "id": 2,
-        "name": "Jarvis Considine",
-        "address": "30086 Kathryn Port, Ciceroland NE 07273",
-        "email": "Dimitri.Bechtelar11@gmail.com",
-        "strideLength": 4.5,
-        "dailyStepGoal": 5000,
-        "friends": [
-          9,
-          18,
-          24,
-          19
-        ]
-      });
+      "id": 2,
+      "name": "Jarvis Considine",
+      "address": "30086 Kathryn Port, Ciceroland NE 07273",
+      "email": "Dimitri.Bechtelar11@gmail.com",
+      "strideLength": 4.5,
+      "dailyStepGoal": 5000,
+      "friends": [
+        9,
+        18,
+        24,
+        19
+      ]
+    });
   });
   it('filterUsersData should return null if not given an argument', () => {
     expect(userRepository.filterUsersData()).to.eql(null);
@@ -101,11 +100,4 @@ describe('UserRepo', () => {
     const result = 6666;
     expect(userRepository.averageStepGoal()).to.eql(result);
   });
-  //input : id
-  //find all data related to user id
-  //output : user data
-  //
-  // it('should', () => {});
-  // it('should', () => {});
-
 });
