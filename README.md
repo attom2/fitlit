@@ -1,5 +1,5 @@
 # FitLit 
-
+Github pages deployed site: https://attom2.github.io/fitlit/src/index.html
 ## Contributors
 Andy Tom (github.com/attom2) and Justin Volk (github.com/jdvolk)
 ___
@@ -7,6 +7,7 @@ ___
 1.  Clone the repo using `git clone`
 2. Once you have cloned the repo, change into the directory and install the project dependencies. Run `npm install` to install project dependencies.
 3. Run `open src/index.html` in the terminal to see the HTML page (you should see some boilerplate HTML displayed on the page)
+
 ___
 ## Project Description
 This project is a beautiful dashboard for a user to view and see their latest activity data, goals, and milestones. It pulls from a number of separate datasets and analyzes their contents for the specific user. 
